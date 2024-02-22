@@ -1,2 +1,11 @@
+^renv$
+^renv\.lock$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^LICENSE\.md$
+^README\.Rmd$
+^renv
+^app\.R$
+^rsconnect$
+^data-raw$
+^dev$
