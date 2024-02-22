@@ -4,6 +4,7 @@
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^README\.Rmd$
+^README\.md$
 ^renv
 ^app\.R$
 ^rsconnect$
