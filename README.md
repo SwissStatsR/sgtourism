@@ -6,8 +6,9 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The **sgtourism** R package contains the R code to recreate the official
-St.Gallen Tourism Dashboard.
+The **sgtourism** R package contains the R code to recreate the
+[official St.Gallen Tourism
+Dashboard](https://ffssg.shinyapps.io/sgtourismus/).
 
 ## Installation
 
@@ -24,3 +25,6 @@ library(sgtourism)
 
 run_app() # launch the app locally
 ```
+
+The R Shiny app has be packaged using the
+[Golem](https://github.com/ThinkR-open/golem) R package.
