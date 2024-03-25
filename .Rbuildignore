@@ -10,3 +10,4 @@
 ^rsconnect$
 ^data-raw$
 ^dev$
+^\.github$
