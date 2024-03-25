@@ -5,8 +5,8 @@
 
 <!-- badges: start -->
 
-[![SpiGesXML status
-badge](https://swissstatsr.r-universe.dev/badges/SpiGesXML)](https://swissstatsr.r-universe.dev/SpiGesXML)
+[![sgtourism status
+badge](https://swissstatsr.r-universe.dev/badges/sgtourism)](https://swissstatsr.r-universe.dev/sgtourism)
 [![R-CMD-check](https://github.com/statistikSG/sgtourism/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/statistikSG/sgtourism/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
