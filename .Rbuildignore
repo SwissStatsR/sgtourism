@@ -4,10 +4,11 @@
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^README\.Rmd$
-^README\.md$
 ^renv
 ^app\.R$
 ^rsconnect$
 ^data-raw$
 ^dev$
+^deploy$
+^CODE_OF_CONDUCT\.md$
 ^\.github$

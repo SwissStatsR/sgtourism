@@ -6,20 +6,27 @@
 #'
 #' @noRd
 #'
-#' @importFrom shiny NS tagList
+#' @importFrom shiny moduleServer eventReactive observeEvent renderUI reactive req NS tagList fluidRow span uiOutput br htmlOutput
 #' @importFrom shinyWidgets pickerInput
 #' @importFrom echarts4r echarts4rOutput
-#' @importFrom bs4Dash box
+#' @importFrom bs4Dash box popover actionButton
 mod_ueberblick_tab_ui <- function(id){
   ns <- NS(id)
   tagList(
         fluidRow(
-          column(
+          bs4Dash::column(
             offset = 1,
             width = 3,
             shinyWidgets::pickerInput(
               inputId = ns("beobachtungsregion"),
-              label = "Beobachtungsregion:",
+              label = span(
+                "Beobachtungsregion:",
+                popover(
+                  tag = bs4Dash::actionButton("infoBeobachtungsregion", label = NULL, icon = icon("question-circle"), class = "border-0 p-0"),
+                  title = NULL,
+                  content = "Zur Abgrenzung der St.Galler Tourismusdestinationen und der Tourismusregion Ostschweiz siehe https://www.sg.ch/ueber-den-kanton-st-gallen/statistik/metainformationen/tourismusdestinationen.html"
+                ),
+              ),
               choices = c("Schweiz", "Ostschweiz", "Kanton St.Gallen", "Heidiland", "St.Gallen-Bodensee", "Toggenburg", "Z\u00fcrichsee"),
               selected = "Kanton St.Gallen",
               options = list(style = "btn-outline-secondary")
@@ -32,24 +39,24 @@ mod_ueberblick_tab_ui <- function(id){
               options = list(style = "btn-outline-secondary")
             )
           ),
-          column(
+          bs4Dash::column(
             width = 3,
             shinyWidgets::pickerInput(
               inputId = ns("beobachtungsjahr"),
               label = "Beobachtungsjahr:",
-              choices = get_years(data = sgtourism::df_prep)$year_choices_referenz,
-              selected = get_years(data = sgtourism::df_prep)$beobachtungsjahr_selected,
+              choices = get_years(data = sgtourism::df_ueberblick)$year_choices_referenz,
+              selected = get_years(data = sgtourism::df_ueberblick)$beobachtungsjahr_selected,
               options = list(style = "btn-outline-secondary")
             ),
             shinyWidgets::pickerInput(
               inputId = ns("referenzjahr"),
               label = "Referenzjahr:",
-              choices = get_years(data = sgtourism::df_prep)$year_choices_referenz,
-              selected = get_years(data = sgtourism::df_prep)$referenzjahr_selected,
+              choices = get_years(data = sgtourism::df_ueberblick)$year_choices_referenz,
+              selected = get_years(data = sgtourism::df_ueberblick)$referenzjahr_selected,
               options = list(style = "btn-outline-secondary")
             )
           ),
-          column(
+          bs4Dash::column(
             width = 3,
             uiOutput(ns("monat_range_ui"))
           )
@@ -91,7 +98,7 @@ mod_ueberblick_tab_ui <- function(id){
         ),
         br(),
         fluidRow(
-          column(
+          bs4Dash::column(
             width = 6,
             box(
               id = ns("entwicklung_logiernaechte_box"),
@@ -102,7 +109,7 @@ mod_ueberblick_tab_ui <- function(id){
               echarts4r::echarts4rOutput(ns("entwicklung_logiernaechte"))
             )
           ),
-          column(
+          bs4Dash::column(
             width = 6,
             box(
               id = ns("veraenderung_logiernaechte_box"),
@@ -115,7 +122,7 @@ mod_ueberblick_tab_ui <- function(id){
           )
         ),
         fluidRow(
-          column(
+          bs4Dash::column(
             width = 6,
             box(
               id = ns("gt_land_beobachtungsregion_box"),
@@ -125,7 +132,7 @@ mod_ueberblick_tab_ui <- function(id){
               gt::gt_output(ns("gt_land_beobachtungsregion"))
             )
           ),
-          column(
+          bs4Dash::column(
             width = 6,
             box(
               id = ns("gt_land_referenzregion_box"),
@@ -148,6 +155,7 @@ mod_ueberblick_tab_ui <- function(id){
 #' @importFrom lubridate month
 #' @importFrom echarts4r renderEcharts4r e_charts e_charts_ e_bar e_line_ e_color e_y_axis e_tooltip e_datazoom e_toolbox_feature e_title e_tooltip_item_formatter e_axis_formatter e_show_loading e_locale
 #' @importFrom gt gt md fmt_number cols_merge cols_label text_transform cells_body opt_interactive sub_missing fmt_percent tab_source_note
+#' @importFrom downloadthis download_this
 #'
 #' @noRd
 mod_ueberblick_tab_server <- function(id){
@@ -158,76 +166,76 @@ mod_ueberblick_tab_server <- function(id){
     # Data
     df_beobachtungsregion <- eventReactive(c(input$beobachtungsregion, input$beobachtungsjahr, input$referenzjahr), {
       data <- if(input$beobachtungsregion == "Schweiz") {
-        df_prep |>
+        sgtourism::df_ueberblick |>
           filter(Jahr == input$beobachtungsjahr) |>
           mutate(Referenz = "beobachtungsjahr") |>
           bind_rows(
-            df_prep |>
+            sgtourism::df_ueberblick |>
               filter(Jahr == input$referenzjahr) |>
               mutate(Referenz = "referenzjahr")
           )
       } else if(input$beobachtungsregion == "Ostschweiz") {
-        df_prep |>
+        sgtourism::df_ueberblick |>
           filter(Kt %in% c(8, 14, 15, 16, 17, 20)) |>
           filter(Jahr == input$beobachtungsjahr) |>
           mutate(Referenz = "beobachtungsjahr") |>
           bind_rows(
-            df_prep |>
+            sgtourism::df_ueberblick |>
               filter(Kt %in% c(8, 14, 15, 16, 17, 20)) |>
               filter(Jahr == input$referenzjahr) |>
               mutate(Referenz = "referenzjahr")
           )
       } else if(input$beobachtungsregion == "Kanton St.Gallen") {
-        df_prep |>
+        sgtourism::df_ueberblick |>
           filter(Kt == 17) |>
           filter(Jahr == input$beobachtungsjahr) |>
           mutate(Referenz = "beobachtungsjahr") |>
           bind_rows(
-            df_prep |>
+            sgtourism::df_ueberblick |>
               filter(Kt == 17) |>
               filter(Jahr == input$referenzjahr) |>
               mutate(Referenz = "referenzjahr")
           )
       } else if(input$beobachtungsregion == "Heidiland") {
-        df_prep |>
+        sgtourism::df_ueberblick |>
           filter(Destination == 1) |>
           filter(Jahr == input$beobachtungsjahr) |>
           mutate(Referenz = "beobachtungsjahr") |>
           bind_rows(
-            df_prep |>
+            sgtourism::df_ueberblick |>
               filter(Destination == 1) |>
               filter(Jahr == input$referenzjahr) |>
               mutate(Referenz = "referenzjahr")
           )
       } else if(input$beobachtungsregion == "St.Gallen-Bodensee") {
-        df_prep |>
+        sgtourism::df_ueberblick |>
           filter(Destination == 2) |>
           filter(Jahr == input$beobachtungsjahr) |>
           mutate(Referenz = "beobachtungsjahr") |>
           bind_rows(
-            df_prep |>
+            sgtourism::df_ueberblick |>
               filter(Destination == 2) |>
               filter(Jahr == input$referenzjahr) |>
               mutate(Referenz = "referenzjahr")
           )
       } else if(input$beobachtungsregion == "Toggenburg") {
-        df_prep |>
+        sgtourism::df_ueberblick |>
           filter(Destination == 3) |>
           filter(Jahr == input$beobachtungsjahr) |>
           mutate(Referenz = "beobachtungsjahr") |>
           bind_rows(
-            df_prep |>
+            sgtourism::df_ueberblick |>
               filter(Destination == 3) |>
               filter(Jahr == input$referenzjahr) |>
               mutate(Referenz = "referenzjahr")
           )
       } else if(input$beobachtungsregion == "Z\u00fcrichsee") {
-        df_prep |>
+        sgtourism::df_ueberblick |>
           filter(Destination == 4) |>
           filter(Jahr == input$beobachtungsjahr) |>
           mutate(Referenz = "beobachtungsjahr") |>
           bind_rows(
-            df_prep |>
+            sgtourism::df_ueberblick |>
               filter(Destination == 4) |>
               filter(Jahr == input$referenzjahr) |>
               mutate(Referenz = "referenzjahr")
@@ -237,82 +245,82 @@ mod_ueberblick_tab_server <- function(id){
     })
     df_referenzregion <- eventReactive(c(input$referenzregion, input$beobachtungsjahr, input$referenzjahr), {
       data <- if(input$referenzregion == "Schweiz") {
-        df_prep |>
+        sgtourism::df_ueberblick |>
           filter(Jahr == input$beobachtungsjahr) |>
           mutate(Referenz = "beobachtungsjahr") |>
           bind_rows(
-            df_prep |>
+            sgtourism::df_ueberblick |>
               filter(Jahr == input$referenzjahr) |>
               mutate(Referenz = "referenzjahr")
           )
       }
       else if(input$referenzregion == "Ostschweiz") {
-        df_prep |>
+        sgtourism::df_ueberblick |>
           filter(Kt %in% c(8, 14, 15, 16, 17, 20)) |>
           filter(Jahr == input$beobachtungsjahr) |>
           mutate(Referenz = "beobachtungsjahr") |>
           bind_rows(
-            df_prep |>
+            sgtourism::df_ueberblick |>
               filter(Kt %in% c(8, 14, 15, 16, 17, 20)) |>
               filter(Jahr == input$referenzjahr) |>
               mutate(Referenz = "referenzjahr")
           )
       }
       else if(input$referenzregion == "Kanton St.Gallen") {
-        df_prep |>
+        sgtourism::df_ueberblick |>
           filter(Kt == 17) |>
           filter(Jahr == input$beobachtungsjahr) |>
           mutate(Referenz = "beobachtungsjahr") |>
           bind_rows(
-            df_prep |>
+            sgtourism::df_ueberblick |>
               filter(Kt == 17) |>
               filter(Jahr == input$referenzjahr) |>
               mutate(Referenz = "referenzjahr")
           )
       }
       else if(input$referenzregion == "Heidiland") {
-        df_prep |>
+        sgtourism::df_ueberblick |>
           filter(Destination == 1) |>
           filter(Jahr == input$beobachtungsjahr) |>
           mutate(Referenz = "beobachtungsjahr") |>
           bind_rows(
-            df_prep |>
+            sgtourism::df_ueberblick |>
               filter(Destination == 1) |>
               filter(Jahr == input$referenzjahr) |>
               mutate(Referenz = "referenzjahr")
           )
       }
       else if(input$referenzregion == "St.Gallen-Bodensee") {
-        df_prep |>
+        sgtourism::df_ueberblick |>
           filter(Destination == 2) |>
           filter(Jahr == input$beobachtungsjahr) |>
           mutate(Referenz = "beobachtungsjahr") |>
           bind_rows(
-            df_prep |>
+            sgtourism::df_ueberblick |>
               filter(Destination == 2) |>
               filter(Jahr == input$referenzjahr) |>
               mutate(Referenz = "referenzjahr")
           )
       }
       else if(input$referenzregion == "Toggenburg") {
-        df_prep |>
+        sgtourism::df_ueberblick |>
           filter(Destination == 3) |>
           filter(Jahr == input$beobachtungsjahr) |>
           mutate(Referenz = "beobachtungsjahr") |>
           bind_rows(
-            df_prep |>
+            sgtourism::df_ueberblick |>
               filter(Destination == 3) |>
               filter(Jahr == input$referenzjahr) |>
               mutate(Referenz = "referenzjahr")
           )
       }
       else if(input$referenzregion == "Z\u00fcrichsee") {
-        df_prep |>
+        sgtourism::df_ueberblick |>
           filter(Destination == 4) |>
           filter(Jahr == input$beobachtungsjahr) |>
           mutate(Referenz = "beobachtungsjahr") |>
           bind_rows(
-            df_prep |>
+            sgtourism::df_ueberblick |>
               filter(Destination == 4) |>
               filter(Jahr == input$referenzjahr) |>
               mutate(Referenz = "referenzjahr")
@@ -391,7 +399,7 @@ mod_ueberblick_tab_server <- function(id){
         )
     })
     df_box_referenz <- reactive({
-      req(input$referenzregion, input$monat)
+      req(input$referenzregion, months_selected())
 
       df_box_referenzregion <- df_referenzregion() |>
         filter(Monat %in% months_selected()) |>
@@ -422,28 +430,70 @@ mod_ueberblick_tab_server <- function(id){
     })
     # box titles
     output$title_ankuenfte <- renderUI({
-      tags$b(paste0("Ank\u00fcnfte ", input$beobachtungsjahr))
+      tags$span(
+        tags$b(paste0("Ank\u00fcnfte ", input$beobachtungsjahr)),
+        popover(
+          tag = bs4Dash::actionButton(
+            inputId = "infoAnkunfte",
+            label = NULL,
+            icon = icon("question-circle"),
+            class = "border-0 p-0"
+          ),
+          title = NULL,
+          content = "Anzahl der G\u00e4ste (inkl. Kinder), die eine oder mehrere N\u00e4chte in einem Hotelleriebetrieb verbringen."
+        )
+      )
     })
     output$title_logiernaechte <- renderUI({
-      tags$b(paste("Logiern\u00e4chte ", input$beobachtungsjahr))
+      tags$span(
+        tags$b(paste0("Logiern\u00e4chte ", input$beobachtungsjahr)),
+        popover(
+          tag = bs4Dash::actionButton(
+            inputId = "infoLogiernaechte",
+            label = NULL,
+            icon = icon("question-circle"),
+            class = "border-0 p-0"
+          ),
+          title = NULL,
+          content = "Anzahl der N\u00e4chte, die die G\u00e4ste (inkl. Kinder) in einem Hotelleriebetrieb verbringen."
+        )
+      )
     })
     output$title_bed_occ <- renderUI({
-      tags$b(paste("Bettenauslastung ", input$beobachtungsjahr))
+      tags$span(tags$b(paste0("Bettenauslastung ", input$beobachtungsjahr)),
+                popover(
+                  tag = bs4Dash::actionButton(
+                    inputId = "infoBettenauslastung",
+                    label = NULL,
+                    icon = icon("question-circle"),
+                    class = "border-0 p-0"
+                  ),
+                  title = NULL,
+                  content = "Brutto-Bettenauslastung: Prozentsatz, zu dem die vorhandenen Betten der Hotelleriebetriebe mit G\u00e4sten belegt waren."
+                )
+      )
     })
     output$title_dur_stay <- renderUI({
-      tags$b(paste("Aufenthaltsdauer ", input$beobachtungsjahr))
+      tags$span(tags$b(paste0("Aufenthaltsdauer  ", input$beobachtungsjahr)),
+                popover(
+                  tag = bs4Dash::actionButton("infoAufenthaltsdauer", label = NULL, icon = icon("question-circle"), class = "border-0 p-0"),
+                  title = NULL,
+                  content = "Anzahl der Logiern\u00e4chte dividiert durch die Anzahl der Ank\u00fcnfte."
+                )
+      )
     })
     output$title_entwicklung_logiernaechte <- renderUI({
-      tags$b(paste("Entwicklung Logiern\u00e4chte ", input$beobachtungsregion))
+      # tags$b(paste("Entwicklung Logiern\u00e4chte ", input$beobachtungsregion))
+      tags$b(paste("Entwicklung Logiern\u00e4chte"))
     })
     output$title_veraenderung_logiernaechte <- renderUI({
       tags$b(paste("Ver\u00e4nderung Logiern\u00e4chte ", input$referenzjahr, " - ", input$beobachtungsjahr))
     })
     output$title_gt_land_beobachtungsregion <- renderUI({
-      tags$div(tags$b(paste0(input$beobachtungsregion, ", ", input$beobachtungsjahr)), tags$small(paste0(" (Veränderung ggü. ", input$referenzjahr, ")")))
+      tags$div(tags$b(paste0(input$beobachtungsregion, ", ", input$beobachtungsjahr)), tags$small(paste0(" (Ver\u00e4nderung gg\u00fc. ", input$referenzjahr, ")")))
     })
     output$title_gt_land_referenzregion <- renderUI({
-      tags$div(tags$b(paste0(input$referenzregion, ", ", input$beobachtungsjahr)), tags$small(paste0(" (Veränderung ggü. ", input$referenzjahr, ")")))
+      tags$div(tags$b(paste0(input$referenzregion, ", ", input$beobachtungsjahr)), tags$small(paste0(" (Ver\u00e4nderung gg\u00fc. ", input$referenzjahr, ")")))
     })
     # Boxes
     output$box_ankuenfte <- reactive({
@@ -469,8 +519,6 @@ mod_ueberblick_tab_server <- function(id){
       add_plus_if_needed_beobachtung_percent_change<- add_plus_if_needed(df_box_beobachtung_ankuenfte$percent_change)
       add_plus_if_needed_referenz_diff_abs <- add_plus_if_needed(df_box_referenz_ankuenfte$diff_abs)
       add_plus_if_needed_referenz_percent_change<- add_plus_if_needed(df_box_referenz_ankuenfte$percent_change)
-
-
 
       paste0("<span style='font-size: 1.1em;'>",
              input$beobachtungsregion,
@@ -522,7 +570,7 @@ mod_ueberblick_tab_server <- function(id){
       )
     })
     output$box_logiernaechte <- reactive({
-      req(input$monat)
+      req(months_selected())
 
       df_box_beobachtung_logiernaechte <- df_box_beobachtung() |>
         filter(Indicator == "Logiernaechte")
@@ -596,7 +644,7 @@ mod_ueberblick_tab_server <- function(id){
       )
     })
     output$box_bed_occ <- reactive({
-      req(input$beobachtungsregion, input$monat)
+      req(input$beobachtungsregion, months_selected())
 
       df_box_beobachtung_bed_occ <- df_box_beobachtung() |>
         filter(Indicator == "bed_occ")
@@ -652,7 +700,7 @@ mod_ueberblick_tab_server <- function(id){
       )
     })
     output$box_dur_stay <- reactive({
-      req(input$beobachtungsregion, input$monat)
+      req(input$beobachtungsregion, months_selected())
 
       df_box_beobachtung_dur_stay <- df_box_beobachtung() |>
         filter(Indicator == "dur_stay")
@@ -728,7 +776,7 @@ mod_ueberblick_tab_server <- function(id){
       )
     })
     output$entwicklung_logiernaechte <- renderEcharts4r({
-      req(input$monat, months_selected(), df_beobachtungsregion())
+      req(months_selected(), df_beobachtungsregion())
 
       df <- df_beobachtungsregion() |>
         filter(Monat %in% months_selected()) |>
@@ -769,7 +817,7 @@ mod_ueberblick_tab_server <- function(id){
 
     })
     output$veraenderung_logiernaechte <- renderEcharts4r({
-      req(input$monat,  df_beobachtungsregion())
+      req(months_selected(),  df_beobachtungsregion())
 
       df_beobachtung <- df_beobachtungsregion() |>
         mutate(region_type = "beobachtungsregion") |>
@@ -879,8 +927,8 @@ mod_ueberblick_tab_server <- function(id){
         mutate(Country = gsub("_2","- ", Country)) # "_1" replace by a dash and blank
 
       df |>
-        gt(locale = "de") |>
-        fmt_number(beobachtungsjahrLN, sep_mark = "'", decimals = 0) |>
+        gt(locale = "de_CH") |>
+        fmt_number(beobachtungsjahrLN, decimals = 0) |>
         fmt_percent(columns = c(percent_changeLN, marktanteil, marktanteil_diff), decimals = 1, drop_trailing_zeros = TRUE) |>
         fmt_number(columns =  c(dur_stay_beobachtung, dur_stay_diff_abs), decimals = 2) |>
         sub_missing(
@@ -907,7 +955,7 @@ mod_ueberblick_tab_server <- function(id){
           pattern = paste0("<b style='font-size: 1.05em;'>{1}</b><br>{2}-Pkt")
         ) |>
         cols_label(
-          Country = md("**Herkunftsland**"),
+          Country = with_tooltip("Herkunftsland", "Lorem Ipsum"),
           beobachtungsjahrLN = md("**Logiern\u00e4chte**"),
           dur_stay_beobachtung = md("**Aufenthaltsdauer in Tagen**"),
           marktanteil = md("**Marktanteil**")
@@ -953,6 +1001,24 @@ mod_ueberblick_tab_server <- function(id){
             rows = marktanteil_diff < 0 & round(marktanteil_diff, 3) != 0
           ),
           fn = function(x) paste(x, down_arrow())
+        ) |>
+        tab_source_note(
+          df |>
+            rename(
+              "Herkunftsland" = Country,
+              "Logiern\u00e4chte" = beobachtungsjahrLN,
+              "Logiern\u00e4chte_Diff" = percent_changeLN,
+              "Aufenthaltsdauer_in_Tagen" = dur_stay_beobachtung,
+              "Aufenthaltsdauer_in_Tagen_Diff" = dur_stay_diff_abs,
+              "Marktanteil" = marktanteil,
+              "Marktanteil_Diff" = marktanteil_diff
+            ) |>
+            downloadthis::download_this(
+              output_name = paste0(input$beobachtungsregion, "_", input$beobachtungsjahr, "_", input$referenzjahr),
+              output_extension = ".xlsx", # Excel output
+              button_label = "Vollst\u00e4ndige Tabelle herunterladen",
+              button_type = "primary"
+            )
         ) |>
         opt_interactive(
           use_search = TRUE,
@@ -1043,8 +1109,8 @@ mod_ueberblick_tab_server <- function(id){
         mutate(Country = gsub("_2","- ", Country)) # "_1" replace by a dash and blank
 
       df |>
-        gt(locale = "de") |>
-        fmt_number(beobachtungsjahrLN, sep_mark = "'", decimals = 0) |>
+        gt(locale = "de_CH") |>
+        fmt_number(beobachtungsjahrLN, decimals = 0) |>
         fmt_percent(columns = c(percent_changeLN, marktanteil, marktanteil_diff), decimals = 1, drop_trailing_zeros = TRUE) |>
         fmt_number(columns =  c(dur_stay_beobachtung, dur_stay_diff_abs), decimals = 2) |>
         sub_missing(
@@ -1117,6 +1183,24 @@ mod_ueberblick_tab_server <- function(id){
             rows = marktanteil_diff < 0 & round(marktanteil_diff, 3) != 0
           ),
           fn = function(x) paste(x, down_arrow())
+        ) |>
+        tab_source_note(
+          df |>
+            rename(
+              "Herkunftsland" = Country,
+              "Logiern\u00e4chte" = beobachtungsjahrLN,
+              "Logiern\u00e4chte_Diff" = percent_changeLN,
+              "Aufenthaltsdauer_in_Tagen" = dur_stay_beobachtung,
+              "Aufenthaltsdauer_in_Tagen_Diff" = dur_stay_diff_abs,
+              "Marktanteil" = marktanteil,
+              "Marktanteil_Diff" = marktanteil_diff
+            ) |>
+            downloadthis::download_this(
+              output_name = paste0(input$referenzregion, "_", input$beobachtungsjahr, "_", input$referenzjahr),
+              output_extension = ".xlsx", # Excel output
+              button_label = "Vollst\u00e4ndige Tabelle herunterladen",
+              button_type = "primary"
+            )
         ) |>
         opt_interactive(
           use_search = TRUE,

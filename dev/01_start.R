@@ -19,9 +19,9 @@
 ## to change the name in the app_sys() function in app_config.R /!\
 ##
 golem::fill_desc(
-  pkg_name = "sgtourismus", # The Name of the package containing the App
-  pkg_title = "Tourismus Dashboard", # The Title of the package containing the App
-  pkg_description = "Tourismus Dashboard R Shiny app.", # The Description of the package containing the App
+  pkg_name = "sgtourism", # The Name of the package containing the App
+  pkg_title = "Tourism Dashboard", # The Title of the package containing the App
+  pkg_description = "Tourism Dashboard R Shiny app.", # The Description of the package containing the App
   author_first_name = "Felix", # Your First Name
   author_last_name = "Luginbuehl", # Your Last Name
   author_email = "felix.luginbuehl@sg.ch", # Your Email
@@ -32,12 +32,12 @@ golem::fill_desc(
 # specify multiple authors: https://github.com/ThinkR-open/golem/issues/256#issuecomment-1304449457
 p <- c(person(given = "Felix",
               family = "Luginbuehl",
-              role = c("aut", "cre"),
-              email = "felix.luginbuehl@sg.ch"),
+              role = c("aut"),
+              email = "Felix.Luginbuehl@sg.ch"),
        person(given = "Lutz",
               family = "Benson",
               role = c("ctb"),
-              email = "lutz.benson@sg.ch"),
+              email = "Lutz.Benson@sg.ch"),
        person("Fachstelle für Statistik Kanton St.Gallen",
               role = c("cph", "fnd"))
 )
@@ -57,6 +57,7 @@ usethis::use_readme_rmd(open = FALSE)
 devtools::build_readme()
 # Note that `contact` is required since usethis version 2.1.5
 # If your {usethis} version is older, you can remove that param
+usethis::use_code_of_conduct(contact = "sgtourism User")
 usethis::use_lifecycle_badge("Experimental")
 usethis::use_news_md(open = FALSE)
 

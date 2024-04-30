@@ -3,7 +3,7 @@
 library(readr)
 library(dplyr)
 
-df_prep <- readr::read_delim(file = "data-raw/LN_HK_agg_mun.csv", delim = ";") |>
+df_ueberblick <- readr::read_delim(file = "data-raw/LN_HK_agg_mun.csv", delim = ";") |>
   mutate(Date = paste(Jahr, Monat, "1", sep = "-")) # create date
 
-usethis::use_data(df_prep, overwrite = TRUE)
+usethis::use_data(df_ueberblick, overwrite = TRUE)

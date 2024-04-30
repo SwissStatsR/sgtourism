@@ -1,7 +1,6 @@
 .Rproj.user
+.RProfile
 .Rhistory
 .RData
 .Ruserdata
-/rsconnect
-/renv
 .Renviron

@@ -123,3 +123,24 @@ month_abb_de <- function() {
 tab <- function(...) {
   shiny::tabPanel(..., class = "p-3 border border-top-0 rounded-bottom")
 }
+
+#' A helper to add basic tooltip inside a gt table
+#' SOURCE: https://github.com/jthomasmock/gtExtras/blob/master/R/html-helpers.R
+#' @description This is a lightweight helper to add tooltip, typically to be
+#' used within `gt::cols_label()`.
+#' @param label The label for the item with a tooltip
+#' @param tooltip The text based tooltip for the item
+#'
+#' @return HTML text
+#'
+#' @noRd
+with_tooltip <- function(label, tooltip) {
+  tags$abbr(
+    style = paste0(
+      "cursor: question; font-weight: bold;"
+    ),
+    title = tooltip, label
+  ) %>%
+    as.character() %>%
+    gt::html()
+}
