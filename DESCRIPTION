@@ -25,6 +25,7 @@ Imports:
     shiny,
     shinyWidgets,
     tidyr,
+    utils,
     waiter
 Suggests: 
     testthat (>= 3.0.0)
