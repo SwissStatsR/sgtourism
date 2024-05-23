@@ -4,7 +4,7 @@ Version: 0.1.3
 Authors@R: c(
     person("Felix", "Luginbuhl", , "felix.luginbuehl@sg.ch", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0008-6625-2899")),
-    person("Lutz", "Benson", , "lutz.benson@sg.ch", role = "ctb"),
+    person("Lutz", "Benson", , "lutz.benson@sg.ch", role = "aut"),
     person("Fachstelle für Statistik Kanton St.Gallen", role = c("cph", "fnd"))
   )
 Description: St.Gallen Tourism Dashboard R Shiny app.
