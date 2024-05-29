@@ -32,7 +32,7 @@ golem::fill_desc(
 # specify multiple authors: https://github.com/ThinkR-open/golem/issues/256#issuecomment-1304449457
 p <- c(person(given = "Felix",
               family = "Luginbuehl",
-              role = c("aut"),
+              role = c("aut", "cre"),
               email = "Felix.Luginbuehl@sg.ch"),
        person(given = "Lutz",
               family = "Benson",
