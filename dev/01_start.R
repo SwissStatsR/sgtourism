@@ -36,7 +36,7 @@ p <- c(person(given = "Felix",
               email = "Felix.Luginbuehl@sg.ch"),
        person(given = "Lutz",
               family = "Benson",
-              role = c("ctb"),
+              role = c("aut"),
               email = "Lutz.Benson@sg.ch"),
        person("Fachstelle für Statistik Kanton St.Gallen",
               role = c("cph", "fnd"))
