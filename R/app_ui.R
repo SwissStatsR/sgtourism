@@ -15,7 +15,7 @@ app_ui <- function(request) {
     bs4Dash::dashboardPage(
       title = "Tourismus-Dashboard Kanton St.Gallen",
       dark = NULL,
-      help = TRUE, # show popover
+      # help = TRUE, # show popover
       preloader = list(html = tagList(waiter::spin_1(), "Loading St.Gallen dashboard..."), color = "#7AB800"),
       header = bs4Dash::dashboardHeader(
         title = bs4Dash::dashboardBrand(
@@ -34,39 +34,37 @@ app_ui <- function(request) {
             text = "\u00dcberblick",
             icon = icon("home"),
             tabName = "ueberblick"
-          )
-          # ,
-          # menuItem(
-          #   text = "Details",
-          #   icon = icon("map"),
-          #   # MAYBE MISSING Ostschweiz ?
-          #   # menuSubItem(
-          #   #     "Ostschweiz",
-          #   #     tabName = "ostschweiz"
-          #   # ),
-          #   menuSubItem(
-          #     "Kanton St.Gallen",
-          #     tabName = "st-gallen"
-          #   ),
-          #   menuSubItem(
-          #     "Heidiland",
-          #     tabName = "heidiland"
-          #   ),
-          #   menuSubItem(
-          #     "St.Gallen-Bodensee",
-          #     tabName = "st-gallen-bodensee"
-          #   ),
-          #   menuSubItem(
-          #     "Toggenburg",
-          #     tabName = "toggenburg"
-          #   ),
-          #   menuSubItem(
-          #     "Z\u00fcrichsee",
-          #     tabName = "zuerichsee"
-          #   )
-          # )
-        )
-      ),
+          ),
+          menuItem(
+            text = "Details",
+            icon = icon("map"),
+            tabName = "details"
+          ),
+          menuItem(
+            text = "Perimeter",
+            icon = icon("map"),
+            menuSubItem(
+              "Gesamt\u00fcberblick",
+              tabName = "peri_all"
+            ),
+            menuSubItem(
+              "Heidiland",
+              tabName = "peri_heidiland"
+            ),
+            menuSubItem(
+              "St.Gallen-Bodensee",
+              tabName = "peri_st-gallen-bodensee"
+            ),
+            menuSubItem(
+              "Toggenburg",
+              tabName = "peri_toggenburg"
+            ),
+            menuSubItem(
+              "Z\u00fcrichsee",
+              tabName = "peri_zuerichsee"
+            )
+          )          )
+        ),
       footer = dashboardFooter(
         left = HTML("Quelle: Bundesamt f\u00fcr Statistik, HESTA (aktuelles Jahr: provisorische Zahlen), Aufbereitung und Berechnung: <a target=_blank href='https://www.statistik.sg.ch'>FfS-SG</a>"),
         right = HTML("version: <a target=_blank href='https://github.com/statistikSG/sgtourism'>", paste0(packageVersion("sgtourism")), "</a>")
@@ -87,19 +85,26 @@ app_ui <- function(request) {
             # ),
             mod_ueberblick_tab_ui("ueberblick_tab_1")
           ),
-          tabItem(
-            tabName = "st-gallen",
-            fluidRow(
-              column(
-                width = 12,
-                bs4Dash::tabsetPanel(type = "tabs",
-                            tab("Angebot", box(title = tags$b("Title"), tags$p("Content"))),
-                            tab("Nachfrage"),
-                            tab("Auslastung"),
-                            tab("M\u00e4rkte")
-                )
-              )
-            )
+           tabItem(
+             tabName = "details", # TEST
+             fluidRow(
+               column(
+                 width = 12,
+                 mod_details_tab_ui("details_tab_1")
+               )
+             )
+          ),
+          tabItem(tabName = "peri_all",
+                  fluidRow(column(
+                    width = 12,
+                    bs4Dash::tabsetPanel(
+                      type = "tabs",
+                      tab("Angebot", box(title = tags$b("Title"), tags$p("Content"))),
+                      tab("Nachfrage", box(title = tags$b("Title"), tags$p("Content"))),
+                      tab("Auslastung", box(title = tags$b("Title"), tags$p("Content")))
+                    )
+                  )
+                  )
           )
         )
       )

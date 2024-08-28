@@ -32,11 +32,11 @@ golem::fill_desc(
 # specify multiple authors: https://github.com/ThinkR-open/golem/issues/256#issuecomment-1304449457
 p <- c(person(given = "Felix",
               family = "Luginbuehl",
-              role = c("aut", "cre"),
+              role = c("aut"),
               email = "Felix.Luginbuehl@sg.ch"),
        person(given = "Lutz",
               family = "Benson",
-              role = c("aut"),
+              role = c("ctb"),
               email = "Lutz.Benson@sg.ch"),
        person("Fachstelle für Statistik Kanton St.Gallen",
               role = c("cph", "fnd"))

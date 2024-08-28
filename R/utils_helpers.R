@@ -1,3 +1,30 @@
+#' Text with clickable question icon with popover text
+#'
+#' @param text text to show
+#' @param popover_content text content of the popover
+#' @param input_id unique ID to make the popover work
+#'
+#' @return an text followed by a clickable icon button with a popover text.
+#'
+#' @importFrom bs4Dash popover actionButton
+#'
+#'
+#' @noRd
+text_with_popover_icon <- function(text, popover_content, input_id) {
+  span(
+    text,
+    bs4Dash::popover(
+      tag = bs4Dash::actionButton(
+        inputId = input_id,
+        label = NULL,
+        icon = shiny::icon("question-circle"),
+        class = "border-0 p-0"),
+      title = NULL,
+      content = popover_content
+    )
+  )
+}
+
 #' Get color palette
 #'
 #' @description Get official St.Gallen intensiv and rein color palette
@@ -143,4 +170,39 @@ with_tooltip <- function(label, tooltip) {
   ) %>%
     as.character() %>%
     gt::html()
+}
+
+
+#' helper to get the most recent months of the actual year
+#'
+#' @param df data frame for which the month has to be recognized
+#'
+#' @importFrom dplyr filter pull
+#'
+#' @return Number of most recent month
+#'
+#' @noRd
+max_month_actual <-function(df) {
+  unique(df |>
+           filter(Jahr == max(Jahr)) |>
+           filter(Monat == max(Monat)) |>
+           pull(Monat)
+         )
+}
+
+#' helper to get needed variable names for selected country
+#'
+#' @param country_name country name from interactive input
+#'
+#' @importFrom dplyr filter select
+#'
+#' @return variable names for arrivals and overnight stays
+#'
+#' @noRd
+get_country_vars <- function(country_name) {
+  sgtourism::meta_countries |>
+    filter(Country2 == country_name) |>
+    select(Country2, CountryAK, CountryLN) |>
+    unlist() |>
+    as.character()
 }

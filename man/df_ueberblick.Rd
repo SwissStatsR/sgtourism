@@ -5,7 +5,7 @@
 \alias{df_ueberblick}
 \title{Data used in the mod_ueberblick_tab.R}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 2990 rows and 173 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 11232 rows and 174 columns.
 }
 \usage{
 df_ueberblick

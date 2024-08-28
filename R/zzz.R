@@ -5,4 +5,7 @@ globalVariables(c("Abs_diff" , "Ankuenfte", "Bettenmonat", "Country", "Destinati
                   "dur_stay_diff_abs", "dur_stay_referenz", "marktanteil", "marktanteil_diff",
                   "marktanteil_referenz", "percent_change", "percent_changeLN",
                   "referenz_logiernaechte", "referenzjahr", "referenzjahrAK", "referenzjahrLN",
-                  "region_type"))
+                  "region_type", "Aggregat", "Betriebe", "Betten", "Zimmer", "hot_size",
+                  "Betriebsgroesse", "Betriebe_total","Betten_total", "Country2", "CountryAK",
+                  "CountryLN", "Total", "Zimmernaechte", "NettoBett", "NettoZimm", ".data",
+                  "Ankuenfte_total", "Zimmermonat", "bed_net_occ", "room_net_occ", "room_occ"))

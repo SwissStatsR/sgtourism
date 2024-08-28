@@ -1,0 +1,49 @@
+aggregat_cd,aggregat_tx
+CH,Schweiz
+OSTCH,Ostschweiz
+KSG,Kanton St.Gallen
+WK_1721,Wahlkreis St.Gallen
+WK_1722,Wahlkreis Rorschach
+WK_1723,Wahlkreis Rheintal
+WK_1724,Wahlkreis Werdenberg
+WK_1725,Wahlkreis Sarganserland
+WK_1726,Wahlkreis See-Gaster
+WK_1727,Wahlkreis Toggenburg
+WK_1728,Wahlkreis Wil
+FH,Destination Heidiland
+FH_1,Subregion Bad Ragaz
+FH_2,Subregion Pizol (ohne Bad Ragaz)
+FH_3,Subregion Flumserberg
+FH_4,Subregion Walensee
+FH_5,Subregion Bündner Herrschaft / Fünf Dörfer
+FH_SG,Destination Heidiland Teil SG
+SGBS,Destination St.Gallen-Bodensee
+SGBS_1,Subregion St.Gallen
+SGBS_2,Subregion Bodensee
+SGBS_3,Subregion Rheintal
+SGBS_4,Subregion Fürstenland
+TB,Destination Toggenburg
+TB_1,Subregion Wildhaus-Alt St. Johann
+TB_2,Subregion Nesslau / Ebnat-Kappel
+TB_3,Subregion Neckertal
+TB_4,Subregion Mittleres / Unteres Toggenburg
+ZS,Destination Zürichsee
+ZS_1,Subregion Rapperswil-Jona
+ZS_2,Subregion Linthebene
+ZS_3,Subregion Züri-Oberland
+ZS_4,Subregion Zürichsee
+ZS_5,Subregion Ausserschwyz
+ZS_SG,Destination Zürichsee Teil SG
+MUN_3203,St.Gallen
+MUN_3271,Buchs (SG)
+MUN_3291,Bad Ragaz
+MUN_3292,Flums
+MUN_3295,Quarten
+MUN_3297,Vilters-Wangs
+MUN_3298,Walenstadt
+MUN_3311,Amden
+MUN_3340,Rapperswil-Jona
+MUN_3359,Wildhaus-Alt St. Johann
+MUN_3408,Uzwil
+MUN_3427,Wil (SG)
+MUN_3443,Gossau (SG)

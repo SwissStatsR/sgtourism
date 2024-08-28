@@ -12,3 +12,5 @@
 ^deploy$
 ^CODE_OF_CONDUCT\.md$
 ^\.github$
+^doc$
+^Meta$

@@ -21,12 +21,18 @@ attachment::att_amend_desc()
 ## Add modules ----
 ## Create a module infrastructure in R/
 golem::add_module(name = "ueberblick_tab", with_test = TRUE) # Name of the module
+golem::add_module(name = "details_tab", with_test = TRUE) # Name of the module
 
 ## Add helper functions ----
 ## Creates fct_* and utils_*
 #golem::add_fct("helpers", with_test = TRUE)
 golem::add_utils("helpers", with_test = TRUE)
 golem::add_fct("get_year", with_test = TRUE)
+golem::add_fct("filter_data", with_test = TRUE)
+golem::add_fct("months", with_test = TRUE)
+golem::add_fct("boxes", with_test = TRUE)
+golem::add_fct("plots", with_test = TRUE)
+golem::add_fct("gt_tables", with_test = TRUE)
 
 ## External resources
 ## Creates .js and .css files at inst/app/www
@@ -38,7 +44,7 @@ golem::add_css_file("custom")
 
 ## Tests ----
 ## Add one line by test you want to create
-usethis::use_test("app")
+# usethis::use_test("app")
 
 # Documentation
 
