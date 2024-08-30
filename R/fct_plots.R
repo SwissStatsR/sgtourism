@@ -87,7 +87,7 @@ plot_bar_change <- function(df_beobachtungsregion, df_referenzregion, variables,
     group_by(region_type) |>
     e_charts(Monat) |>
     e_bar(percent_change) |>
-    e_color(color = color_palette(name = "rein")) |>
+    e_color(color = color_palette(name = "pal_sg_2")) |>
     e_tooltip(
       formatter = e_tooltip_item_formatter("percent", digits = 1)
     ) |>
@@ -139,9 +139,9 @@ plot_line_years <- function(data, months_selected, variable) {
     arrange(Monat)
 
   if (length(names(df)) == 3) {
-    plot_line_multiple(df = df, color_plot = "intensiv")
+    plot_line_multiple(df = df, color_plot = "pal_sg_1")
   } else if (length(names(df)) == 2) {
-    plot_line_single(df = df, color_plot = "intensiv")
+    plot_line_single(df = df, color_plot = "pal_sg_1")
   }
 }
 
@@ -203,7 +203,7 @@ plot_bar_regions <- function(input, df_beobachtungsregion, df_referenzregion, mo
     group_by(region_type) |>
     e_charts(Monat) |>
     e_bar(percent_change) |>
-    e_color(color = color_palette(name = "rein")) |>
+    e_color(color = color_palette(name = "pal_sg_2")) |>
     e_tooltip(
       formatter = e_tooltip_item_formatter("percent", digits = 1)
     ) |>

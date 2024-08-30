@@ -39,30 +39,30 @@ app_ui <- function(request) {
             text = "Details",
             icon = icon("map"),
             tabName = "details"
-          ),
-          menuItem(
-            text = "Perimeter",
-            icon = icon("map"),
-            menuSubItem(
-              "Gesamt\u00fcberblick",
-              tabName = "peri_all"
-            ),
-            menuSubItem(
-              "Heidiland",
-              tabName = "peri_heidiland"
-            ),
-            menuSubItem(
-              "St.Gallen-Bodensee",
-              tabName = "peri_st-gallen-bodensee"
-            ),
-            menuSubItem(
-              "Toggenburg",
-              tabName = "peri_toggenburg"
-            ),
-            menuSubItem(
-              "Z\u00fcrichsee",
-              tabName = "peri_zuerichsee"
-            )
+          # ),
+          # menuItem(
+          #   text = "Perimeter",
+          #   icon = icon("map"),
+          #   menuSubItem(
+          #     "Gesamt\u00fcberblick",
+          #     tabName = "peri_all"
+          #   ),
+          #   menuSubItem(
+          #     "Heidiland",
+          #     tabName = "peri_heidiland"
+          #   ),
+          #   menuSubItem(
+          #     "St.Gallen-Bodensee",
+          #     tabName = "peri_st-gallen-bodensee"
+          #   ),
+          #   menuSubItem(
+          #     "Toggenburg",
+          #     tabName = "peri_toggenburg"
+          #   ),
+          #   menuSubItem(
+          #     "Z\u00fcrichsee",
+          #     tabName = "peri_zuerichsee"
+          #   )
           )          )
         ),
       footer = dashboardFooter(

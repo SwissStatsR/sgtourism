@@ -654,9 +654,9 @@ mod_details_tab_server <- function(id){
         pivot_wider(names_from = region_type, values_from = Betriebe_total)
 
       if (length(names(df)) == 3) {
-        plot_line_multiple(df, "rein")
+        plot_line_multiple(df, "pal_sg_2")
       } else if (length(names(df)) == 2) {
-        plot_line_single(df, "rein")
+        plot_line_single(df, "pal_sg_2")
       }
 
     })
@@ -686,9 +686,9 @@ mod_details_tab_server <- function(id){
         pivot_wider(names_from = region_type, values_from = Betten_total)
 
       if (length(names(df)) == 3) {
-        plot_line_multiple(df, "rein")
+        plot_line_multiple(df, "pal_sg_2")
       } else if (length(names(df)) == 2) {
-        plot_line_single(df, "rein")
+        plot_line_single(df, "pal_sg_2")
       }
     })
 
@@ -718,9 +718,9 @@ mod_details_tab_server <- function(id){
         pivot_wider(names_from = region_type, values_from = Betriebsgroesse)
 
       if (length(names(df)) == 3) {
-        plot_line_multiple(df, "rein")
+        plot_line_multiple(df, "pal_sg_2")
       } else if (length(names(df)) == 2) {
-        plot_line_single(df, "rein")
+        plot_line_single(df, "pal_sg_2")
       }
     })
 
@@ -747,7 +747,7 @@ mod_details_tab_server <- function(id){
         title = "Aufenthaltsdauer",
         input = input,
         input_id = "infoDur_staySGBS",
-        popover_content = "Durchschnittliche Anzahl der Zimmer in allen erfassten Betrieben w\u00e4hrend der betreffenden Periode."
+        popover_content = "Anzahl der Logiern\u00e4chte dividiert durch die Anzahl der Ank\u00fcnfte."
       )
     })
     output$title_zimmernaechte <- renderUI({
@@ -879,9 +879,9 @@ mod_details_tab_server <- function(id){
         pivot_wider(names_from = region_type, values_from = Ankuenfte_total)
 
       if (length(names(df)) == 3) {
-        plot_line_multiple(df, "rein")
+        plot_line_multiple(df, "pal_sg_2")
       } else if (length(names(df)) == 2) {
-        plot_line_single(df, "rein")
+        plot_line_single(df, "pal_sg_2")
       }
 
     })
@@ -912,9 +912,9 @@ mod_details_tab_server <- function(id){
         pivot_wider(names_from = region_type, values_from = Logiernaechte_total)
 
       if (length(names(df)) == 3) {
-        plot_line_multiple(df, "rein")
+        plot_line_multiple(df, "pal_sg_2")
       } else if (length(names(df)) == 2) {
-        plot_line_single(df, "rein")
+        plot_line_single(df, "pal_sg_2")
       }
     })
     output$entwicklung_dur_stay <- renderEcharts4r({
@@ -944,11 +944,11 @@ mod_details_tab_server <- function(id){
         pivot_wider(names_from = region_type, values_from = dur_stay)
 
       if (length(names(df)) == 3) {
-        plot_line_multiple(df, "rein") |>
+        plot_line_multiple(df, "pal_sg_2") |>
           e_y_axis(formatter = e_axis_formatter(digits = 1)
           )
       } else if (length(names(df)) == 2) {
-        plot_line_single(df, "rein")|>
+        plot_line_single(df, "pal_sg_2")|>
           e_y_axis(formatter = e_axis_formatter(digits = 1)
           )
       }
@@ -982,11 +982,11 @@ mod_details_tab_server <- function(id){
           pivot_wider(names_from = region_type, values_from = Zimmernaechte)
 
         if (length(names(df)) == 3) {
-          plot_line_multiple(df, "rein") |>
+          plot_line_multiple(df, "pal_sg_2") |>
             e_y_axis(formatter = e_axis_formatter(digits = 1)
             )
         } else if (length(names(df)) == 2) {
-          plot_line_single(df, "rein")|>
+          plot_line_single(df, "pal_sg_2")|>
             e_y_axis(formatter = e_axis_formatter(digits = 1)
             )
         }
@@ -1095,11 +1095,21 @@ mod_details_tab_server <- function(id){
         arrange(Monat)
 
       if (length(names(df)) == 3) {
-        plot_line_multiple(df, "intensiv") |>
-          e_y_axis(formatter = e_axis_formatter("percent", digits = 0))
+        plot_line_multiple(df, "pal_sg_1") |>
+          e_y_axis(
+            formatter = e_axis_formatter("percent", digits = 0)
+          ) |>
+          e_tooltip(
+            formatter = e_tooltip_item_formatter("percent", digits = 1)
+          )
         } else if (length(names(df)) == 2) {
-        plot_line_single(df, "intensiv") |>
-          e_y_axis(formatter = e_axis_formatter("percent", digits = 0))
+        plot_line_single(df, "pal_sg_1") |>
+          e_y_axis(
+            formatter = e_axis_formatter("percent", digits = 0)
+          ) |>
+          e_tooltip(
+            formatter = e_tooltip_item_formatter("percent", digits = 1)
+          )
         }
     })
     output$entw_kurz_bed_net_occ <- renderEcharts4r({
@@ -1110,7 +1120,7 @@ mod_details_tab_server <- function(id){
         mutate(Monat = month_abb_de()[Monat]) |> # month names
         mutate(Jahr = as.factor(Jahr)) |>
         group_by(Jahr, Monat) |>
-        summarise(bed_net_occ = sum(Logiernaechte) / sum(NettoZimm)) |>
+        summarise(bed_net_occ = sum(Logiernaechte) / sum(NettoBett)) |>
         ungroup() |>
         complete(Monat = month_abb_de(), nesting(Jahr), fill = list(bed_net_occ = NA)) |>
         pivot_wider(names_from = Jahr, values_from = bed_net_occ) |>
@@ -1118,11 +1128,21 @@ mod_details_tab_server <- function(id){
         arrange(Monat)
 
       if (length(names(df)) == 3) {
-        plot_line_multiple(df, "intensiv") |>
-          e_y_axis(formatter = e_axis_formatter("percent", digits = 0))
+        plot_line_multiple(df, "pal_sg_1") |>
+          e_y_axis(
+            formatter = e_axis_formatter("percent", digits = 0)
+          ) |>
+          e_tooltip(
+            formatter = e_tooltip_item_formatter("percent", digits = 1)
+          )
       } else if (length(names(df)) == 2) {
-        plot_line_single(df, "intensiv") |>
-          e_y_axis(formatter = e_axis_formatter("percent", digits = 0))
+        plot_line_single(df, "pal_sg_1") |>
+          e_y_axis(
+            formatter = e_axis_formatter("percent", digits = 0)
+          ) |>
+          e_tooltip(
+            formatter = e_tooltip_item_formatter("percent", digits = 1)
+          )
       }
     })
     output$entw_kurz_room_occ <- renderEcharts4r({
@@ -1141,11 +1161,21 @@ mod_details_tab_server <- function(id){
         arrange(Monat)
 
       if (length(names(df)) == 3) {
-        plot_line_multiple(df, "intensiv") |>
-          e_y_axis(formatter = e_axis_formatter("percent", digits = 0))
+        plot_line_multiple(df, "pal_sg_1") |>
+          e_y_axis(
+            formatter = e_axis_formatter("percent", digits = 0)
+          ) |>
+          e_tooltip(
+            formatter = e_tooltip_item_formatter("percent", digits = 1)
+          )
       } else if (length(names(df)) == 2) {
-        plot_line_single(df, "intensiv") |>
-          e_y_axis(formatter = e_axis_formatter("percent", digits = 0))
+        plot_line_single(df, "pal_sg_1") |>
+          e_y_axis(
+            formatter = e_axis_formatter("percent", digits = 0)
+          ) |>
+          e_tooltip(
+            formatter = e_tooltip_item_formatter("percent", digits = 1)
+          )
       }
     })
 
@@ -1177,12 +1207,20 @@ mod_details_tab_server <- function(id){
         pivot_wider(names_from = region_type, values_from = bed_occ)
 
       if (length(names(df)) == 3) {
-        plot_line_multiple(df, "rein") |>
-          e_y_axis(formatter = e_axis_formatter("percent", digits = 0)
-                   )
+        plot_line_multiple(df, "pal_sg_2") |>
+          e_y_axis(
+            formatter = e_axis_formatter("percent", digits = 0)
+          ) |>
+          e_tooltip(
+            formatter = e_tooltip_item_formatter("percent", digits = 1)
+          )
       } else if (length(names(df)) == 2) {
-        plot_line_single(df, "rein")|>
-          e_y_axis(formatter = e_axis_formatter("percent", digits = 0)
+        plot_line_single(df, "pal_sg_2")|>
+          e_y_axis(
+            formatter = e_axis_formatter("percent", digits = 0)
+          ) |>
+          e_tooltip(
+            formatter = e_tooltip_item_formatter("percent", digits = 1)
           )
       }
 
@@ -1215,12 +1253,20 @@ mod_details_tab_server <- function(id){
         pivot_wider(names_from = region_type, values_from = bed_net_occ)
 
       if (length(names(df)) == 3) {
-        plot_line_multiple(df, "rein") |>
-          e_y_axis(formatter = e_axis_formatter("percent", digits = 0)
+        plot_line_multiple(df, "pal_sg_2") |>
+          e_y_axis(
+            formatter = e_axis_formatter("percent", digits = 0)
+          ) |>
+          e_tooltip(
+            formatter = e_tooltip_item_formatter("percent", digits = 1)
           )
       } else if (length(names(df)) == 2) {
-        plot_line_single(df, "rein")|>
-          e_y_axis(formatter = e_axis_formatter("percent", digits = 0)
+        plot_line_single(df, "pal_sg_2")|>
+          e_y_axis(
+            formatter = e_axis_formatter("percent", digits = 0)
+          ) |>
+          e_tooltip(
+            formatter = e_tooltip_item_formatter("percent", digits = 1)
           )
       }
 
@@ -1253,12 +1299,19 @@ mod_details_tab_server <- function(id){
         pivot_wider(names_from = region_type, values_from = room_occ)
 
       if (length(names(df)) == 3) {
-        plot_line_multiple(df, "rein") |>
+        plot_line_multiple(df, "pal_sg_2") |>
           e_y_axis(formatter = e_axis_formatter("percent", digits = 0)
+          ) |>
+          e_tooltip(
+            formatter = e_tooltip_item_formatter("percent", digits = 1)
           )
       } else if (length(names(df)) == 2) {
-        plot_line_single(df, "rein")|>
-          e_y_axis(formatter = e_axis_formatter("percent", digits = 0)
+        plot_line_single(df, "pal_sg_2")|>
+          e_y_axis(
+            formatter = e_axis_formatter("percent", digits = 0)
+          ) |>
+          e_tooltip(
+            formatter = e_tooltip_item_formatter("percent", digits = 1)
           )
         }
       })
@@ -1270,40 +1323,3 @@ mod_details_tab_server <- function(id){
 
 ## To be copied in the server
 # mod_details_tab_server("details_tab_1")
-
-
-
-
-# Ich habe folgende Abfrage: if(input$referenzregion == "Kanton St.Gallen") {
-#   sgtourism::df_ueberblick |>
-#     filter(Kt == 17) |>
-#     filter(Jahr == input$beobachtungsjahr) |>
-#     mutate(Referenz = "beobachtungsjahr") |>
-#     bind_rows(
-#       sgtourism::df_ueberblick |>
-#         filter(Kt == 17) |>
-#         filter(Jahr == input$referenzjahr) |>
-#         mutate(Referenz = "referenzjahr")
-#       Ich möchte diese so abändern, dass die Variable input$referenzregion in einer lookup-Tabelle in Spalte 2 (aggregat_tx) nachgeschaut wird und für die Variable Kt der Wert aus Spalte 1 (aggregat_cd) der lookup-Tabelle übernommen wird.
-#
-#       # Lookup-Tabelle
-#       lookup_table <- data.frame(
-#         aggregat_cd = c(17, 18),  # Beispielwerte für Kt
-#         aggregat_tx = c("Kanton St.Gallen", "Kanton Zürich")  # Beispielwerte für referenzregion
-#       )
-#
-#       # Geänderte Abfrage
-#       if (input$referenzregion %in% lookup_table$aggregat_tx) {
-#         kt_value <- lookup_table$aggregat_cd[lookup_table$aggregat_tx == input$referenzregion]
-#
-#         sgtourism::df_ueberblick |>
-#           filter(Kt == kt_value) |>
-#           filter(Jahr == input$beobachtungsjahr) |>
-#           mutate(Referenz = "beobachtungsjahr") |>
-#           bind_rows(
-#             sgtourism::df_ueberblick |>
-#               filter(Kt == kt_value) |>
-#               filter(Jahr == input$referenzjahr) |>
-#               mutate(Referenz = "referenzjahr")
-#           )
-#       }
