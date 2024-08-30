@@ -22,7 +22,17 @@ You can install the package like so:
 install.packages("sgtourism", repos = "https://swissstatsr.r-universe.dev")
 ```
 
-## How to update the Shiny app
+## Run the app
+
+You can launch the dashboard locally like so:
+
+``` r
+library(sgtourism)
+
+run_app()
+```
+
+## How to update data
 
 The app is built using the [golem](https://thinkr-open.github.io/golem/) R package.
 
