@@ -4,7 +4,7 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# sgtourism
+# sgtourism <img src="man/figures/logo.png" align="right" height="138" />
 
 <!-- badges: start -->
 [![swissstatsr badge](https://swissstatsr.r-universe.dev/badges/:name)](https://swissstatsr.r-universe.dev/)
