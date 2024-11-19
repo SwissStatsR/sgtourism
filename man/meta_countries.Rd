@@ -5,7 +5,7 @@
 \alias{meta_countries}
 \title{Metadata used for country and region names.}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 80 rows and 4 columns.
+An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 80 rows and 4 columns.
 }
 \usage{
 meta_countries

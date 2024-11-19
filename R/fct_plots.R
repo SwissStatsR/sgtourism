@@ -4,16 +4,16 @@
 #' @param df data fram to plot
 #' @param color_plot color palette 'name' argument from `color_palette()`
 #'
+#' @importFrom echarts4r e_charts_ e_line_ e_color e_grid e_tooltip e_datazoom e_toolbox_feature e_show_loading e_locale
 #' @return line plot for two years
-#'
-#'
 #' @noRd
-plot_line_multiple <-function(df, color_plot){
+plot_line_multiple <- function(df, color_plot){
   df |>
     e_charts_(names(df)[1]) |>
     e_line_(names(df)[2]) |>
     e_line_(names(df)[3]) |>
     e_color(color = color_palette(name = color_plot)) |>
+    e_grid(left = 62) |>
     e_tooltip(trigger = "axis") |>
     e_datazoom(toolbox = FALSE)|>
     e_toolbox_feature(feature = c("saveAsImage", "dataView")) |>
@@ -35,6 +35,7 @@ plot_line_single <-function(df, color_plot){
     e_charts_(names(df)[1]) |>
     e_line_(names(df)[2]) |>
     e_color(color = color_palette(name = color_plot)) |>
+    e_grid(left = 62) |>
     e_tooltip(trigger = "axis") |>
     e_datazoom(toolbox = FALSE) |>
     e_toolbox_feature(feature = c("saveAsImage", "dataView")) |>
@@ -62,7 +63,8 @@ plot_bar_change <- function(df_beobachtungsregion, df_referenzregion, variables,
     mutate(region_type = "beobachtungsregion") |>
     mutate(Monat = as.factor(Monat)) |>
     group_by(region_type, Referenz, Monat) |>
-    summarise(Total = sum({{ variables }}, na.rm = TRUE)) |>
+    # summarise(Total = sum({{ variables }}, na.rm = TRUE)) |>
+    summarise(Total = sum({{ variables }})) |>
     ungroup() |>
     pivot_wider(names_from = Referenz, values_from = Total) |>
     mutate(percent_change = (beobachtungsjahr - referenzjahr)/ referenzjahr)
@@ -71,7 +73,8 @@ plot_bar_change <- function(df_beobachtungsregion, df_referenzregion, variables,
     mutate(region_type = "referenzregion") |>
     mutate(Monat = as.factor(Monat)) |>
     group_by(region_type, Referenz, Monat) |>
-    summarise(Total = sum({{ variables }}, na.rm = TRUE)) |>
+    # summarise(Total = sum({{ variables }}, na.rm = TRUE)) |>
+    summarise(Total = sum({{ variables }})) |>
     ungroup() |>
     pivot_wider(names_from = Referenz, values_from = Total) |>
     mutate(percent_change = (beobachtungsjahr - referenzjahr)/ referenzjahr)
@@ -120,7 +123,6 @@ plot_line_years_title <- function(title, input) {
 #' @param variable variable to compare the year values
 #'
 #' @return an echarts4r object
-#'
 #' @noRd
 plot_line_years <- function(data, months_selected, variable) {
 
@@ -151,7 +153,6 @@ plot_line_years <- function(data, months_selected, variable) {
 #' @param input input
 #'
 #' @return an html object
-#'
 #' @noRd
 plot_bar_regions_title <- function(title, input) {
   tags$b(paste0(title, " ", input$referenzjahr, " - ", input$beobachtungsjahr))
@@ -166,7 +167,6 @@ plot_bar_regions_title <- function(title, input) {
 #' @param variable variable
 #'
 #' @return echarts4r object
-#'
 #' @noRd
 plot_bar_regions <- function(input, df_beobachtungsregion, df_referenzregion, months_selected, variable){
 

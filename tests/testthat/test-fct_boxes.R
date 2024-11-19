@@ -2,8 +2,9 @@ test_that("get_box_data() returns an none-empty dataframe and create_box() retur
   input <- list(
     beobachtungsregion = "Kanton St.Gallen",
     referenzregion = "Schweiz",
-    beobachtungsjahr = 2015,
-    referenzjahr = 2016
+    beobachtungsjahr = 2021,
+    referenzjahr = 2018,
+    markt = sgtourism::meta_countries$Country2[4]
   )
   months_selected <- c(1,2)
   df_beobachtungsregion <- filter_data(
@@ -66,6 +67,25 @@ test_that("get_box_data() returns an none-empty dataframe and create_box() retur
     indicator = "bed_occ"
   )
   expect_equal(class(box_bed_occ), "character")
+
+  df_box_beobachtung_by_markt <- get_box_data_markt(
+    data = df_beobachtungsregion,
+    months_selected = c(1,2),
+    input = input
+  )
+  df_box_referenz_by_markt <- get_box_data_markt(
+    data = df_beobachtungsregion,
+    months_selected = c(1,2),
+    input = input
+  )
+  box_ankuenfte_markt_country <- create_box(
+    input = input,
+    df_box_beobachtung = df_box_beobachtung_by_markt,
+    df_box_referenz = df_box_referenz_by_markt,
+    indicator = "Ankuenfte"
+  )
+
+  expect_equal(class(box_ankuenfte_markt_country), "character")
 })
 
 test_that("create_box_title() returns shiny tags with correct text", {

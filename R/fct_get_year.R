@@ -7,8 +7,8 @@
 #' @importFrom assertthat assert_that
 #'
 #' @return A list of vectors.
-#'
-#' @noRd
+#' @keywords internal
+#' @export
 get_years <- function(data) {
   assertthat::assert_that("Jahr" %in% names(data), msg = "`Jahr` variable name missing from data.")
   year_choices <- sort(unique(data[["Jahr"]]), decreasing = TRUE)

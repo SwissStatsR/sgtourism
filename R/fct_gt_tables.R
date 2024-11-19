@@ -4,8 +4,8 @@
 #' @param input_region input region, either input$beobachtungsjahr or input$beobachtungsjahr
 #'
 #' @return an html object
-#'
-#' @noRd
+#' @keywords internal
+#' @export
 create_gt_title <- function(input, input_region) {
   tags$div(tags$b(paste0(input_region, ", ", input$beobachtungsjahr)), tags$small(paste0(" (Ver\u00e4nderung gg\u00fc. ", input$referenzjahr, ")")))
 }
@@ -20,15 +20,15 @@ create_gt_title <- function(input, input_region) {
 #' @importFrom dplyr select filter mutate bind_rows distinct arrange pull group_by ungroup summarise left_join rename recode starts_with desc
 #'
 #' @return a dataframe.
-#'
-#' @noRd
+#' @keywords internal
+#' @export
 create_gt_data_beobachtung <- function(df_beobachtungsregion, df_box_beobachtung, months_selected) {
   df_eda_ln <- df_beobachtungsregion |>
     filter(Monat %in% months_selected) |>
     select(Jahr, Referenz, starts_with("LN")) |>
     pivot_longer(cols = starts_with("LN"), names_to = "Country", values_to = "Value") |>
     mutate(Country = gsub("^LN","", Country)) |>
-    filter(Country != "AL") |> # REMOVE "AL" COUNTRY CATEGORY
+    filter(Country != "AL") |> # "AL" as "Ausland total" removed
     group_by(Jahr, Referenz, Country) |>
     summarise(TotalLN = sum(Value, na.rm = TRUE)) |>
     ungroup() |>
@@ -43,6 +43,7 @@ create_gt_data_beobachtung <- function(df_beobachtungsregion, df_box_beobachtung
     select(Jahr, Referenz, starts_with("AK")) |>
     pivot_longer(cols = starts_with("AK"), names_to = "Country", values_to = "Value") |>
     mutate(Country = gsub("^AK","", Country)) |>
+    filter(Country != "AL") |> # "AL" as "Ausland total" removed
     group_by(Jahr, Referenz, Country) |>
     summarise(TotalLN = sum(Value, na.rm = TRUE)) |>
     ungroup() |>
@@ -88,15 +89,15 @@ create_gt_data_beobachtung <- function(df_beobachtungsregion, df_box_beobachtung
 #' @importFrom dplyr select filter mutate bind_rows distinct arrange pull group_by ungroup summarise left_join rename recode starts_with desc
 #'
 #' @return a dataframe.
-#'
-#' @noRd
+#' @keywords internal
+#' @export
 create_gt_data_referenzregion <- function(df_referenzregion, df_box_referenz, months_selected, gt_data_beobachtung) {
   df_eda_ln <- df_referenzregion |>
     filter(Monat %in% months_selected) |>
     select(Jahr, Referenz, starts_with("LN")) |>
     pivot_longer(cols = starts_with("LN"), names_to = "Country", values_to = "Value") |>
     mutate(Country = gsub("^LN","", Country)) |>
-    filter(Country != "AL") |> # REMOVE "AL" COUNTRY CATEGORY
+    filter(Country != "AL") |> # "AL" as "Ausland total" removed
     group_by(Jahr, Referenz, Country) |>
     summarise(TotalLN = sum(Value, na.rm = TRUE)) |>
     ungroup() |>
@@ -111,6 +112,7 @@ create_gt_data_referenzregion <- function(df_referenzregion, df_box_referenz, mo
     select(Jahr, Referenz, starts_with("AK")) |>
     pivot_longer(cols = starts_with("AK"), names_to = "Country", values_to = "Value") |>
     mutate(Country = gsub("^AK","", Country)) |>
+    filter(Country != "AL") |> # "AL" as "Ausland total" removed
     group_by(Jahr, Referenz, Country) |>
     summarise(TotalLN = sum(Value, na.rm = TRUE)) |>
     ungroup() |>
@@ -161,8 +163,8 @@ create_gt_data_referenzregion <- function(df_referenzregion, df_box_referenz, mo
 #' @importFrom gt gt md fmt_number cols_merge cols_label text_transform cells_body opt_interactive sub_missing fmt_percent tab_source_note
 #'
 #' @return a gt object
-#'
-#' @noRd
+#' @keywords internal
+#' @export
 create_gt_beobachtungsregion <- function(data, input) {
   df <- data |>
     mutate(Country = gsub("([a-z])([A-Z])","\\1 \\2", Country)) |> # Space before capital letter
@@ -279,8 +281,8 @@ create_gt_beobachtungsregion <- function(data, input) {
 #' @importFrom gt gt md fmt_number cols_merge cols_label text_transform cells_body opt_interactive sub_missing fmt_percent tab_source_note
 #'
 #' @return a gt object.
-#'
-#' @noRd
+#' @keywords internal
+#' @export
 create_gt_referenzregion <- function(gt_table_data_referenz, gt_data_beobachtung, input) {
 
   df <- gt_table_data_referenz

@@ -13,8 +13,8 @@
 #' @importFrom dplyr filter mutate bind_rows
 #'
 #' @return a filtered data.frame
-#'
-#' @noRd
+#' @keywords internal
+#' @export
 filter_data <- function(data, input_region, input) {
   aggregat_lookup <- sgtourism::lookup_aggregat$aggregat_cd[sgtourism::lookup_aggregat$aggregat_tx == input_region]
   df_filtered <- sgtourism::df_ueberblick |>

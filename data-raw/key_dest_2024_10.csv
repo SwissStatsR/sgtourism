@@ -1,0 +1,137 @@
+﻿bfs_nr;bfs_name;kt_cd;dest_cd;dest_nr;dest_name;aggregat;aggregat_name
+111;Bäretswil;ZH;ZS;4;Destination Zürichsee;ZS_3;Züri-Oberland
+112;Bubikon;ZH;ZS;4;Destination Zürichsee;ZS_3;Züri-Oberland
+113;Dürnten;ZH;ZS;4;Destination Zürichsee;ZS_3;Züri-Oberland
+114;Fischenthal;ZH;ZS;4;Destination Zürichsee;ZS_3;Züri-Oberland
+115;Gossau (ZH);ZH;ZS;4;Destination Zürichsee;ZS_3;Züri-Oberland
+116;Grüningen;ZH;ZS;4;Destination Zürichsee;ZS_3;Züri-Oberland
+117;Hinwil;ZH;ZS;4;Destination Zürichsee;ZS_3;Züri-Oberland
+118;Rüti (ZH);ZH;ZS;4;Destination Zürichsee;ZS_3;Züri-Oberland
+119;Seegräben;ZH;ZS;4;Destination Zürichsee;ZS_3;Züri-Oberland
+120;Wald (ZH);ZH;ZS;4;Destination Zürichsee;ZS_3;Züri-Oberland
+121;Wetzikon (ZH);ZH;ZS;4;Destination Zürichsee;ZS_3;Züri-Oberland
+131;Adliswil;ZH;ZS;4;Destination Zürichsee;ZS_4;Zürichsee
+135;Kilchberg (ZH);ZH;ZS;4;Destination Zürichsee;ZS_4;Zürichsee
+136;Langnau am Albis;ZH;ZS;4;Destination Zürichsee;ZS_4;Zürichsee
+137;Oberrieden;ZH;ZS;4;Destination Zürichsee;ZS_4;Zürichsee
+138;Richterswil;ZH;ZS;4;Destination Zürichsee;ZS_4;Zürichsee
+139;Rüschlikon;ZH;ZS;4;Destination Zürichsee;ZS_4;Zürichsee
+141;Thalwil;ZH;ZS;4;Destination Zürichsee;ZS_4;Zürichsee
+151;Erlenbach (ZH);ZH;ZS;4;Destination Zürichsee;ZS_4;Zürichsee
+152;Herrliberg;ZH;ZS;4;Destination Zürichsee;ZS_4;Zürichsee
+153;Hombrechtikon;ZH;ZS;4;Destination Zürichsee;ZS_4;Zürichsee
+154;Küsnacht (ZH);ZH;ZS;4;Destination Zürichsee;ZS_4;Zürichsee
+155;Männedorf;ZH;ZS;4;Destination Zürichsee;ZS_4;Zürichsee
+156;Meilen;ZH;ZS;4;Destination Zürichsee;ZS_4;Zürichsee
+157;Oetwil am See;ZH;ZS;4;Destination Zürichsee;ZS_4;Zürichsee
+158;Stäfa;ZH;ZS;4;Destination Zürichsee;ZS_4;Zürichsee
+159;Uetikon am See;ZH;ZS;4;Destination Zürichsee;ZS_4;Zürichsee
+160;Zumikon;ZH;ZS;4;Destination Zürichsee;ZS_4;Zürichsee
+161;Zollikon;ZH;ZS;4;Destination Zürichsee;ZS_4;Zürichsee
+191;Dübendorf;ZH;ZS;4;Destination Zürichsee;ZS_3;Züri-Oberland
+192;Egg;ZH;ZS;4;Destination Zürichsee;ZS_3;Züri-Oberland
+193;Fällanden;ZH;ZS;4;Destination Zürichsee;ZS_3;Züri-Oberland
+194;Greifensee;ZH;ZS;4;Destination Zürichsee;ZS_3;Züri-Oberland
+195;Maur;ZH;ZS;4;Destination Zürichsee;ZS_3;Züri-Oberland
+196;Mönchaltorf;ZH;ZS;4;Destination Zürichsee;ZS_3;Züri-Oberland
+197;Schwerzenbach;ZH;ZS;4;Destination Zürichsee;ZS_3;Züri-Oberland
+198;Uster;ZH;ZS;4;Destination Zürichsee;ZS_3;Züri-Oberland
+199;Volketswil;ZH;ZS;4;Destination Zürichsee;ZS_3;Züri-Oberland
+293;Wädenswil;ZH;ZS;4;Destination Zürichsee;ZS_4;Zürichsee
+295;Horgen;ZH;ZS;4;Destination Zürichsee;ZS_4;Zürichsee
+1301;Einsiedeln;SZ;ZS;4;Destination Zürichsee;ZS_5;Ausserschwyz
+1321;Feusisberg;SZ;ZS;4;Destination Zürichsee;ZS_5;Ausserschwyz
+1322;Freienbach;SZ;ZS;4;Destination Zürichsee;ZS_5;Ausserschwyz
+1323;Wollerau;SZ;ZS;4;Destination Zürichsee;ZS_5;Ausserschwyz
+1341;Altendorf;SZ;ZS;4;Destination Zürichsee;ZS_5;Ausserschwyz
+1342;Galgenen;SZ;ZS;4;Destination Zürichsee;ZS_5;Ausserschwyz
+1343;Innerthal;SZ;ZS;4;Destination Zürichsee;ZS_5;Ausserschwyz
+1344;Lachen;SZ;ZS;4;Destination Zürichsee;ZS_5;Ausserschwyz
+1345;Reichenburg;SZ;ZS;4;Destination Zürichsee;ZS_5;Ausserschwyz
+1346;Schübelbach;SZ;ZS;4;Destination Zürichsee;ZS_5;Ausserschwyz
+1347;Tuggen;SZ;ZS;4;Destination Zürichsee;ZS_5;Ausserschwyz
+1348;Vorderthal;SZ;ZS;4;Destination Zürichsee;ZS_5;Ausserschwyz
+1349;Wangen (SZ);SZ;ZS;4;Destination Zürichsee;ZS_5;Ausserschwyz
+3201;Häggenschwil      ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_4;Fürstenland
+3202;Muolen            ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_4;Fürstenland
+3203;St. Gallen        ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_1;St.Gallen
+3204;Wittenbach        ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_1;St.Gallen
+3211;Berg (SG)         ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_2;Bodensee
+3212;Eggersriet        ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_2;Bodensee
+3213;Goldach           ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_2;Bodensee
+3214;Mörschwil         ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_2;Bodensee
+3215;Rorschach         ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_2;Bodensee
+3216;Rorschacherberg   ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_2;Bodensee
+3217;Steinach          ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_2;Bodensee
+3218;Tübach            ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_2;Bodensee
+3219;Untereggen        ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_2;Bodensee
+3231;Au (SG)           ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_3;Rheintal
+3232;Balgach           ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_3;Rheintal
+3233;Berneck           ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_3;Rheintal
+3234;Diepoldsau        ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_3;Rheintal
+3235;Rheineck          ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_2;Bodensee
+3236;St. Margrethen    ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_3;Rheintal
+3237;Thal              ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_2;Bodensee
+3238;Widnau            ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_3;Rheintal
+3251;Altstätten        ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_3;Rheintal
+3252;Eichberg          ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_3;Rheintal
+3253;Marbach (SG)      ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_3;Rheintal
+3254;Oberriet (SG)     ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_3;Rheintal
+3255;Rebstein          ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_3;Rheintal
+3256;Rüthi (SG)        ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_3;Rheintal
+3271;Buchs (SG)        ;SG;;;;;Ergänzungsgebiet Werdenberg
+3272;Gams              ;SG;;;;;Ergänzungsgebiet Werdenberg
+3273;Grabs             ;SG;;;;;Ergänzungsgebiet Werdenberg
+3274;Sennwald          ;SG;;;;;Ergänzungsgebiet Werdenberg
+3275;Sevelen           ;SG;;;;;Ergänzungsgebiet Werdenberg
+3276;Wartau;SG;;;;;Ergänzungsgebiet Werdenberg
+3291;Bad Ragaz         ;SG;FH;1;Destination Heidiland;FH_1;Bad Ragaz
+3292;Flums             ;SG;FH;1;Destination Heidiland;FH_4;Flumserberg
+3293;Mels              ;SG;FH;1;Destination Heidiland;FH_2;Pizol (ohne Bad Ragaz)
+3294;Pfäfers           ;SG;FH;1;Destination Heidiland;FH_2;Pizol (ohne Bad Ragaz)
+3295;Quarten           ;SG;FH;1;Destination Heidiland;FH_3;Walensee
+3296;Sargans           ;SG;FH;1;Destination Heidiland;FH_2;Pizol (ohne Bad Ragaz)
+3297;Vilters-Wangs     ;SG;FH;1;Destination Heidiland;FH_2;Pizol (ohne Bad Ragaz)
+3298;Walenstadt        ;SG;FH;1;Destination Heidiland;FH_3;Walensee
+3311;Amden             ;SG;ZS;4;Destination Zürichsee;ZS_2;Linthebene
+3312;Benken (SG)       ;SG;ZS;4;Destination Zürichsee;ZS_2;Linthebene
+3313;Kaltbrunn         ;SG;ZS;4;Destination Zürichsee;ZS_2;Linthebene
+3315;Schänis           ;SG;ZS;4;Destination Zürichsee;ZS_2;Linthebene
+3316;Weesen            ;SG;ZS;4;Destination Zürichsee;ZS_2;Linthebene
+3338;Schmerikon        ;SG;ZS;4;Destination Zürichsee;ZS_2;Linthebene
+3339;Uznach            ;SG;ZS;4;Destination Zürichsee;ZS_2;Linthebene
+3340;Rapperswil-Jona;SG;ZS;4;Destination Zürichsee;ZS_1;Rapperswil
+3341;Gommiswald        ;SG;ZS;4;Destination Zürichsee;ZS_2;Linthebene
+3342;Eschenbach (SG)   ;SG;ZS;4;Destination Zürichsee;ZS_2;Linthebene
+3352;Ebnat-Kappel      ;SG;TB;3;Destination Toggenburg;TB_2;Nesslau / Ebnat-Kappel
+3359;Wildhaus-Alt St. Johann;SG;TB;3;Destination Toggenburg;TB_1;Wildhaus-Alt St. Johann
+3360;Nesslau;SG;TB;3;Destination Toggenburg;TB_2;Nesslau / Ebnat-Kappel
+3374;Lichtensteig      ;SG;TB;3;Destination Toggenburg;TB_3;Mittleres / Unteres Toggenburg
+3379;Wattwil           ;SG;TB;3;Destination Toggenburg;TB_3;Mittleres / Unteres Toggenburg
+3392;Kirchberg (SG)    ;SG;TB;3;Destination Toggenburg;TB_3;Mittleres / Unteres Toggenburg
+3393;Lütisburg         ;SG;TB;3;Destination Toggenburg;TB_3;Mittleres / Unteres Toggenburg
+3394;Mosnang           ;SG;TB;3;Destination Toggenburg;TB_3;Mittleres / Unteres Toggenburg
+3395;Bütschwil-Ganterschwil;SG;TB;3;Destination Toggenburg;TB_3;Mittleres / Unteres Toggenburg
+3396;Neckertal;SG;TB;3;Destination Toggenburg;TB_4;Neckertal
+3401;Degersheim        ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_4;Fürstenland
+3402;Flawil            ;SG;;;;;Ergänzungsgebiet Fürstenland
+3405;Jonschwil         ;SG;;;;;Ergänzungsgebiet Fürstenland
+3407;Oberuzwil         ;SG;;;;;Ergänzungsgebiet Fürstenland
+3408;Uzwil             ;SG;;;;;Ergänzungsgebiet Fürstenland
+3422;Niederbüren       ;SG;;;;;Ergänzungsgebiet Fürstenland
+3423;Niederhelfenschwil;SG;;;;;Ergänzungsgebiet Fürstenland
+3424;Oberbüren         ;SG;;;;;Ergänzungsgebiet Fürstenland
+3426;Zuzwil (SG)       ;SG;;;;;Ergänzungsgebiet Fürstenland
+3427;Wil (SG)          ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_4;Fürstenland
+3441;Andwil (SG)       ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_4;Fürstenland
+3442;Gaiserwald        ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_1;St.Gallen
+3443;Gossau (SG)       ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_4;Fürstenland
+3444;Waldkirch         ;SG;SGBS;2;Destination St.Gallen-Bodensee;SGBS_4;Fürstenland
+3945;Trimmis;GR;FH;1;Destination Heidiland;FH_5;Bündner Herrschaft / Fünf Dörfer
+3946;Untervaz;GR;FH;1;Destination Heidiland;FH_5;Bündner Herrschaft / Fünf Dörfer
+3947;Zizers;GR;FH;1;Destination Heidiland;FH_5;Bündner Herrschaft / Fünf Dörfer
+3951;Fläsch;GR;FH;1;Destination Heidiland;FH_5;Bündner Herrschaft / Fünf Dörfer
+3952;Jenins;GR;FH;1;Destination Heidiland;FH_5;Bündner Herrschaft / Fünf Dörfer
+3953;Maienfeld;GR;FH;1;Destination Heidiland;FH_5;Bündner Herrschaft / Fünf Dörfer
+3954;Malans;GR;FH;1;Destination Heidiland;FH_5;Bündner Herrschaft / Fünf Dörfer
+3955;Landquart;GR;FH;1;Destination Heidiland;FH_5;Bündner Herrschaft / Fünf Dörfer

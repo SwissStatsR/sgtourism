@@ -3,9 +3,9 @@
 \docType{data}
 \name{df_ueberblick}
 \alias{df_ueberblick}
-\title{Data used in the mod_ueberblick_tab.R}
+\title{Data used in sgtourism dashboard}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 11232 rows and 174 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 11376 rows and 174 columns.
 }
 \usage{
 df_ueberblick

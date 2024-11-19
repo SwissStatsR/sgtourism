@@ -4,7 +4,8 @@
 #' @param yr2 year 2
 #'
 #' @return start yr for timeline plots
-
+#' @keywords internal
+#' @export
 get_start_tl <- function(yr1, yr2){
   min(as.numeric(yr1), as.numeric(yr2), max(as.numeric(yr1), as.numeric(yr2)) - 10)
 }
@@ -15,7 +16,8 @@ get_start_tl <- function(yr1, yr2){
 #' @param yr2 year 2
 #'
 #' @return end yr for timeline plots
-
+#' @keywords internal
+#' @export
 get_end_tl <- function(yr1, yr2){
   today <- Sys.Date()
   if (as.numeric(format(today, "%m")) > 2 ||

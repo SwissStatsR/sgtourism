@@ -2,14 +2,15 @@
 #'
 #' @description A shiny Module.
 #'
-#' @param id,input,output,session Internal parameters for {shiny}.
-#'
-#' @noRd
+#' @param id Internal parameters for shiny.
 #'
 #' @importFrom shiny moduleServer eventReactive observeEvent renderUI reactive req NS tagList fluidRow span uiOutput br htmlOutput
 #' @importFrom shinyWidgets pickerInput
 #' @importFrom echarts4r echarts4rOutput
 #' @importFrom bs4Dash box
+#'
+#' @keywords internal
+#' @export
 mod_ueberblick_tab_ui <- function(id){
   ns <- NS(id)
   tagList(
@@ -144,7 +145,10 @@ mod_ueberblick_tab_ui <- function(id){
 
 #' ueberblick_tab Server Functions
 #'
-#' @noRd
+#' @param id Internal parameters for shiny.
+#'
+#' @keywords internal
+#' @export
 mod_ueberblick_tab_server <- function(id){
   moduleServer( id, function(input, output, session){
     ns <- session$ns

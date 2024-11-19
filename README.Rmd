@@ -12,39 +12,54 @@ output: github_document
 [![R-CMD-check](https://github.com/statistikSG/sgtourism/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/statistikSG/sgtourism/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The **sgtourism** R package contains the code used to produce the [official St.Gallen Tourismus Dashboard](https://ffssg.shinyapps.io/sgtourismus/).
+The **sgtourism** R package contains the code to produce the [official St.Gallen tourism dashboard](https://ffssg.shinyapps.io/sgtourismus/).
 
-## Installation
+### Launch the app
 
-You can install the package like so:
+Install the R package with:
 
 ``` r
 install.packages("sgtourism", repos = "https://swissstatsr.r-universe.dev")
+# remotes::install_github("statistikSG/sgtourism")
 ```
 
-## Run the app
-
-You can launch the dashboard locally like so:
+Then launch the app locally:
 
 ``` r
-library(sgtourism)
-
-run_app()
+# Run the application
+sgtourism::run_app()
 ```
 
-## How to update data
+### How to reuse the app
 
-The app is built using the [golem](https://thinkr-open.github.io/golem/) R package.
+What if you want to use a different version of **sgtourism** for your own project? We recommend to clone the GitHub repository locally first.
 
-To update the data, you should first replace the CSV file in the "data-raw" folder.
+As your own environment may differ from ours, a stratagy could be to take advantage of the "renv.lock.prod" file to set up the R package dependencies:
 
-Then you should run the related R script in the "data-raw" folder, which will create a local RDA file in the "data" folder.
-
-Once it is done, you can open the “app.R” file and push the updated app.
-
-## Dockerfile with renv
-
-``` r
-# If you want to deploy via a generic Dockerfile
-golem::add_dockerfile_with_renv(output_dir = "deploy")
+```r
+# install.packages("renv")
+# renv::activate() # run first
+renv::restore(lockfile = "deploy/renv.lock.prod")
 ```
+
+Learn more about **renv** [here](https://rstudio.github.io/renv/articles/renv.html).
+
+Another strategy could be to install all R packages dependencies of **sgtourism**:
+
+```r
+devtools::install()
+```
+
+### How to use your own data
+
+This R shiny application is transformed as an R package using the [golem](https://thinkr-open.github.io/golem/) framework.
+
+To update the data, you should first replace our CSV files with your own files in the `/data-raw` folder.
+
+Then you should run the related R script in the "data-raw" folder to replace the internal RDA file datasets in the `/data` folder.
+
+Once it is done, you can go to `/dev/03_deploy.R` for testing and deploying your application.
+
+### Contribute
+
+Any contribution is strongly appreciated. Feel free to report a bug, ask any question or make a pull request for any remaining [issue](https://github.com/statistikSG/sgtourism/issues).

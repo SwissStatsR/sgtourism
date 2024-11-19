@@ -17,3 +17,4 @@ start yr for timeline plots
 \description{
 Get start of timelines (min length: 10 yrs)
 }
+\keyword{internal}

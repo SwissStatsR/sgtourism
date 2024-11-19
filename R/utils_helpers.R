@@ -7,9 +7,8 @@
 #' @return an text followed by a clickable icon button with a popover text.
 #'
 #' @importFrom bs4Dash popover actionButton
-#'
-#'
-#' @noRd
+#' @keywords internal
+#' @export
 text_with_popover_icon <- function(text, popover_content, input_id) {
   span(
     text,
@@ -32,8 +31,8 @@ text_with_popover_icon <- function(text, popover_content, input_id) {
 #' @param name name of the color palette
 #'
 #' @return character string of HEX codes.
-#'
-#' @noRd
+#' @keywords internal
+#' @export
 color_palette <- function(name) {
   if(name == "pal_sg_1") {
     return(c("#00953b", "#6E2585", "#014a97"))
@@ -49,8 +48,8 @@ color_palette <- function(name) {
 #' @param color Hex color of the arrow
 #'
 #' @return HTML arrow up.
-#'
-#' @noRd
+#' @keywords internal
+#' @export
 up_arrow <- function(color = "#009fe3") {
   paste0("<span style=\"color:", color, "\">&#9650;</span>")
 }
@@ -61,8 +60,8 @@ up_arrow <- function(color = "#009fe3") {
 #' @param color Hex color of the arrow
 #'
 #' @return HTML arrow down.
-#'
-#' @noRd
+#' @keywords internal
+#' @export
 down_arrow <- function(color = "#8a2432") {
   paste0("<span style=\"color:", color, "\">&#9660;</span>")
 }
@@ -76,9 +75,11 @@ down_arrow <- function(color = "#8a2432") {
 #' @param color_neutral Color of the neutral number
 #'
 #' @return An color hex code.
-#'
-#' @noRd
+#' @keywords internal
+#' @export
 get_number_color <- function(number, color_positive = "#009fe3", color_negative = "#8a2432", color_neutral = "#000000") {
+  if(is.na(number)) return(color_neutral)
+
   if (number > 0) {
     color_positive
   } else if (number < 0) {
@@ -94,14 +95,15 @@ get_number_color <- function(number, color_positive = "#009fe3", color_negative 
 #' @param number A number
 #' @param color_positive Color of the positive number
 #' @param color_negative Color of the negative number
-#' @param color_neutral Color of the neutral number
 #'
 #' @importFrom shiny icon
 #'
 #' @return An arrow up or arrow down HTML string.
-#'
-#' @noRd
+#' @keywords internal
+#' @export
 get_number_icon <- function(number, color_positive = "#009fe3", color_negative = "#8a2432") {
+  if(is.na(number)) return("")
+
   if (number > 0) {
     shiny::icon("caret-up", style = paste0("color: ", color_positive))
   } else if (number < 0) {
@@ -118,9 +120,11 @@ get_number_icon <- function(number, color_positive = "#009fe3", color_negative =
 #' @param number A number
 #'
 #' @return An string.
-#'
-#' @noRd
+#' @keywords internal
+#' @export
 add_plus_if_needed <- function(number) {
+  if(is.na(number)) return("")
+
   if (number > 0) {
     "+"
   } else {
@@ -132,8 +136,8 @@ add_plus_if_needed <- function(number) {
 #' @description Get a string containing the abbreviations of German months.
 #'
 #' @return An string.
-#'
-#' @noRd
+#' @keywords internal
+#' @export
 month_abb_de <- function() {
   c("Jan", "Feb", "M\u00e4r", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez")
 }
@@ -145,8 +149,8 @@ month_abb_de <- function() {
 #' @importFrom shiny tabPanel
 #'
 #' @return An string.
-#'
-#' @noRd
+#' @keywords internal
+#' @export
 tab <- function(...) {
   shiny::tabPanel(..., class = "p-3 border border-top-0 rounded-bottom")
 }
@@ -159,8 +163,8 @@ tab <- function(...) {
 #' @param tooltip The text based tooltip for the item
 #'
 #' @return HTML text
-#'
-#' @noRd
+#' @keywords internal
+#' @export
 with_tooltip <- function(label, tooltip) {
   tags$abbr(
     style = paste0(
@@ -180,8 +184,8 @@ with_tooltip <- function(label, tooltip) {
 #' @importFrom dplyr filter pull
 #'
 #' @return Number of most recent month
-#'
-#' @noRd
+#' @keywords internal
+#' @export
 max_month_actual <-function(df) {
   unique(df |>
            filter(Jahr == max(Jahr)) |>
@@ -197,8 +201,8 @@ max_month_actual <-function(df) {
 #' @importFrom dplyr filter select
 #'
 #' @return variable names for arrivals and overnight stays
-#'
-#' @noRd
+#' @keywords internal
+#' @export
 get_country_vars <- function(country_name) {
   sgtourism::meta_countries |>
     filter(Country2 == country_name) |>

@@ -12,8 +12,8 @@
 #' @importFrom shinyWidgets airDatepickerInput
 #'
 #' @return a shinyWidgets airDatepickerInput input.
-#'
-#' @noRd
+#' @keywords internal
+#' @export
 create_months_ui <- function(data, input, ns, label_text) {
   beobachtungsjahr_unique_month <- data |>
     dplyr::filter(Referenz == "beobachtungsjahr") |>
@@ -51,8 +51,8 @@ create_months_ui <- function(data, input, ns, label_text) {
 #' @importFrom lubridate month
 #'
 #' @return The return value, if any, from executing the function.
-#'
-#' @noRd
+#' @keywords internal
+#' @export
 select_months <- function(input) {
   if (length(input$monat) == 2) {
     c(lubridate::month(input$monat[1]) : lubridate::month(input$monat[2]))

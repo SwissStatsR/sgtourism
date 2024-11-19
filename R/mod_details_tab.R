@@ -1,15 +1,16 @@
 #' mod_details_tab_ui UI Function
 #'
-#' @description A shiny Module.
+#' @description Shiny Module for the "details" page.
 #'
-#' @param id,input,output,session Internal parameters for {shiny}.
-#'
-#' @noRd
+#' @param id Internal parameters for shiny.
 #'
 #' @importFrom shiny moduleServer eventReactive observeEvent renderUI reactive req NS tagList fluidRow span uiOutput br htmlOutput
 #' @importFrom shinyWidgets pickerInput
 #' @importFrom echarts4r echarts4rOutput
 #' @importFrom bs4Dash box popover actionButton
+#'
+#' @keywords internal
+#' @export
 mod_details_tab_ui <- function(id){
   ns <- NS(id)
   tagList(
@@ -139,7 +140,7 @@ mod_details_tab_ui <- function(id){
               shinyWidgets::pickerInput(
                 inputId = ns("markt"),
                 label = "Herkunftsland / Markt:",
-                choices = "Total", # sgtourism::meta_countries$Country2,
+                choices = sgtourism::meta_countries$Country2,
                 selected = "Total",
                 options = list(style = "btn-outline-secondary")
               )
@@ -383,6 +384,8 @@ mod_details_tab_ui <- function(id){
 
 #' mod_details_tab_server Server Functions
 #'
+#' @param id Internal parameters for shiny.
+#'
 #' @importFrom bs4Dash updateBox
 #' @importFrom dplyr select filter mutate bind_rows distinct arrange pull group_by ungroup summarise left_join rename recode starts_with desc
 #' @importFrom tidyr pivot_longer pivot_wider complete nesting expand_grid
@@ -392,7 +395,8 @@ mod_details_tab_ui <- function(id){
 #' @importFrom gt gt md fmt_number cols_merge cols_label text_transform cells_body opt_interactive sub_missing fmt_percent tab_source_note
 #' @importFrom downloadthis download_this
 #'
-#' @noRd
+#' @keywords internal
+#' @export
 mod_details_tab_server <- function(id){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
@@ -402,8 +406,8 @@ mod_details_tab_server <- function(id){
       choices_beobachtungsregion <- if(input$region == "Destination Heidiland") {
         list('Destination Heidiland' = c("Destination Heidiland"),
              'Destination Heidiland' = c("Subregion Bad Ragaz", "Subregion Pizol (ohne Bad Ragaz)",
-                                               "Subregion Flumserberg", "Subregion Walensee", "Subregion Walensee",
-                                               "Subregion B\u00fcndner Herrschaft /F\u00fcnf D\u00f6rfer", "Destination Heidiland Teil SG"))
+                                               "Subregion Flumserberg", "Subregion Walensee",
+                                               "Subregion B\u00fcndner Herrschaft / F\u00fcnf D\u00f6rfer", "Destination Heidiland Teil SG"))
       } else if(input$region == "Destination St.Gallen-Bodensee") {
         list('Destination St.Gallen-Bodensee' = c("Destination St.Gallen-Bodensee"),
              'Teilgebiete der Destination' = c("Subregion St.Gallen", "Subregion Bodensee", "Subregion Rheintal",
@@ -438,7 +442,7 @@ mod_details_tab_server <- function(id){
       choices_referenzregion <- if(input$region == "Destination Heidiland") {
         list('Destination Heidiland' = c("Destination Heidiland"),
              'Teilgebiete der Destination' = c("Subregion Bad Ragaz", "Subregion Pizol (ohne Bad Ragaz)",
-                                               "Subregion Flumserberg", "Subregion Walensee", "Subregion Walensee",
+                                               "Subregion Flumserberg", "Subregion Walensee",
                                                "Subregion B\u00fcndner Herrschaft / F\u00fcnf D\u00f6rfer", "Destination Heidiland Teil SG"),
              '\u00dcbergeordnete Ebenen' = c("Kanton St.Gallen", "Ostschweiz", "Schweiz"),
              'Andere Destinationen' = c("Destination St.Gallen-Bodensee", "Destination Toggenburg", "Destination Z\u00fcrichsee"))
@@ -460,7 +464,7 @@ mod_details_tab_server <- function(id){
                                                "Subregion Z\u00fcri-Oberland", "Subregion Z\u00fcrichsee",
                                                "Subregion Ausserschwyz", "Destination Z\u00fcrichsee Teil SG"),
                '\u00dcbergeordnete Ebenen' = c("Kanton St.Gallen", "Ostschweiz", "Schweiz"),
-               'Andere Destinationen' = c("Destination Heidiland", "Destination Heidiland", "Destination St.Gallen-Bodensee"))
+               'Andere Destinationen' = c("Destination Heidiland", "Destination Toggenburg", "Destination St.Gallen-Bodensee"))
         } else if(input$region == "Kanton, Wahlkreise, Gemeinden") {
           list('\u00dcbergeordnete Ebenen' = c("Kanton St.Gallen", "Ostschweiz", "Schweiz"),
                'Wahlkreise' = c("Wahlkreis St.Gallen", "Wahlkreis Rorschach", "Wahlkreis Rheintal", "Wahlkreis Werdenberg",
@@ -534,13 +538,26 @@ mod_details_tab_server <- function(id){
       get_box_data(
         data = df_beobachtungsregion(),
         months_selected = months_selected(),
-        input = input,
-        df_beobachtungsregion = df_beobachtungsregion(),
-        df_referenzregion = df_referenzregion()
+        input = input
       )
     })
     df_box_referenz <- reactive({
       get_box_data(
+        data = df_referenzregion(),
+        months_selected = months_selected(),
+        input = input
+      )
+    })
+    # Create data for box tables by Markt
+    df_box_beobachtung_markt <- reactive({
+      get_box_data_markt(
+        data = df_beobachtungsregion(),
+        months_selected = months_selected(),
+        input = input
+      )
+    })
+    df_box_referenz_markt <- reactive({
+      get_box_data_markt(
         data = df_referenzregion(),
         months_selected = months_selected(),
         input = input
@@ -787,7 +804,14 @@ mod_details_tab_server <- function(id){
           df_box_referenz = df_box_referenz(),
           indicator = "Ankuenfte"
         )
-      } else {paste0("<p><b style='color: #cd0e2d';>","In development.</p>")}
+      } else {
+        create_box(
+          input = input,
+          df_box_beobachtung = df_box_beobachtung_markt(),
+          df_box_referenz = df_box_referenz_markt(),
+          indicator = "Ankuenfte"
+        )
+      }
     })
     output$box_logiernaechte <- eventReactive(c(input$markt, input$beobachtungsregion, input$referenzregion, input$referenzjahr, df_box_beobachtung(), df_box_referenz()), {
       if (input$markt[[1]] == "Total"){
@@ -797,7 +821,14 @@ mod_details_tab_server <- function(id){
           df_box_referenz = df_box_referenz(),
           indicator = "Logiernaechte"
         )
-      } else {paste0("<p><b style='color: #cd0e2d';>","In development.</p>")}
+      } else {
+        create_box(
+          input = input,
+          df_box_beobachtung = df_box_beobachtung_markt(),
+          df_box_referenz = df_box_referenz_markt(),
+          indicator = "Logiernaechte"
+        )
+      }
     })
     output$box_dur_stay <- eventReactive(c(input$markt, input$beobachtungsregion, input$referenzregion, input$referenzjahr, df_box_beobachtung(), df_box_referenz()), {
       if (input$markt[[1]] == "Total"){
@@ -807,7 +838,14 @@ mod_details_tab_server <- function(id){
           df_box_referenz = df_box_referenz(),
           indicator = "dur_stay"
         )
-      } else {paste0("<p><b style='color: #cd0e2d';>","In development.</p>")}
+      } else {
+        create_box_dur_stay(
+          input = input,
+          df_box_beobachtung = df_box_beobachtung_markt(),
+          df_box_referenz = df_box_referenz_markt(),
+          indicator = "dur_stay"
+        )
+      }
     })
     output$box_zimmernaechte <- eventReactive(c(input$markt, input$beobachtungsregion, input$referenzregion, input$referenzjahr, df_box_beobachtung(), df_box_referenz()), {
       if (input$markt[[1]] == "Total"){
@@ -860,7 +898,8 @@ mod_details_tab_server <- function(id){
         filter(!is.na(Betriebe))|>
         mutate(region_type = "beobachtungsregion") |>
         group_by(region_type, Jahr) |>
-        summarise(Ankuenfte_total = sum(.data[[get_country_vars(input$markt)[2]]], na.rm = TRUE)) |>
+        # summarise(Ankuenfte_total = sum(.data[[get_country_vars(input$markt)[2]]], na.rm = TRUE)) |>
+        summarise(Ankuenfte_total = sum(.data[[get_country_vars(input$markt)[2]]])) |>
         ungroup()
 
       df_referenz <- expand_grid(Jahr = c(min(min(df_referenzregion()$Jahr), max(df_referenzregion()$Jahr - 10)):max(df_referenzregion()$Jahr)), Monat = 1:12, Aggregat = unique(df_referenzregion()$Aggregat)) |>
@@ -868,7 +907,8 @@ mod_details_tab_server <- function(id){
         filter(!is.na(Betriebe))|>
         mutate(region_type = "referenzregion") |>
         group_by(region_type, Jahr) |>
-        summarise(Ankuenfte_total = sum(.data[[get_country_vars(input$markt)[2]]], na.rm = TRUE)) |>
+        # summarise(Ankuenfte_total = sum(.data[[get_country_vars(input$markt)[2]]], na.rm = TRUE)) |>
+        summarise(Ankuenfte_total = sum(.data[[get_country_vars(input$markt)[2]]])) |>
         ungroup()
 
       df <- df_beobachtung |>
@@ -893,7 +933,8 @@ mod_details_tab_server <- function(id){
         filter(!is.na(Betriebe))|>
         mutate(region_type = "beobachtungsregion") |>
         group_by(region_type, Jahr) |>
-        summarise(Logiernaechte_total = sum(.data[[get_country_vars(input$markt)[3]]], na.rm = TRUE)) |>
+        # summarise(Logiernaechte_total = sum(.data[[get_country_vars(input$markt)[3]]], na.rm = TRUE)) |>
+        summarise(Logiernaechte_total = sum(.data[[get_country_vars(input$markt)[3]]])) |>
         ungroup()
 
       df_referenz <- expand_grid(Jahr = c(min(min(df_referenzregion()$Jahr), max(df_referenzregion()$Jahr - 10)):max(df_referenzregion()$Jahr)), Monat = 1:12, Aggregat = unique(df_referenzregion()$Aggregat)) |>
@@ -901,7 +942,8 @@ mod_details_tab_server <- function(id){
         filter(!is.na(Betriebe))|>
         mutate(region_type = "referenzregion") |>
         group_by(region_type, Jahr) |>
-        summarise(Logiernaechte_total = sum(.data[[get_country_vars(input$markt)[3]]], na.rm = TRUE)) |>
+        # summarise(Logiernaechte_total = sum(.data[[get_country_vars(input$markt)[3]]], na.rm = TRUE)) |>
+        summarise(Logiernaechte_total = sum(.data[[get_country_vars(input$markt)[3]]])) |>
         ungroup()
 
       df <- df_beobachtung |>

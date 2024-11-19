@@ -21,7 +21,7 @@ app_ui <- function(request) {
         title = bs4Dash::dashboardBrand(
           title = "Tourismus-Dashboard",
           href = "https://sg.ch",
-          image = "www/sg_flag.png"
+          image = "www/flag.png"
         )
       ),
       sidebar = dashboardSidebar(
@@ -32,39 +32,21 @@ app_ui <- function(request) {
         sidebarMenu(
           menuItem(
             text = "\u00dcberblick",
-            icon = icon("home"),
+            icon = icon("binoculars"),
             tabName = "ueberblick"
           ),
           menuItem(
             text = "Details",
-            icon = icon("map"),
+            icon = icon("magnifying-glass"),
             tabName = "details"
-          # ),
-          # menuItem(
-          #   text = "Perimeter",
-          #   icon = icon("map"),
-          #   menuSubItem(
-          #     "Gesamt\u00fcberblick",
-          #     tabName = "peri_all"
-          #   ),
-          #   menuSubItem(
-          #     "Heidiland",
-          #     tabName = "peri_heidiland"
-          #   ),
-          #   menuSubItem(
-          #     "St.Gallen-Bodensee",
-          #     tabName = "peri_st-gallen-bodensee"
-          #   ),
-          #   menuSubItem(
-          #     "Toggenburg",
-          #     tabName = "peri_toggenburg"
-          #   ),
-          #   menuSubItem(
-          #     "Z\u00fcrichsee",
-          #     tabName = "peri_zuerichsee"
-          #   )
-          )          )
-        ),
+          ),
+          menuItem(
+            text = "Perimeter",
+            icon = icon("map"),
+            tabName = "perimeter"
+          )
+        )
+      ),
       footer = dashboardFooter(
         left = HTML("Quelle: Bundesamt f\u00fcr Statistik, HESTA (aktuelles Jahr: provisorische Zahlen), Aufbereitung und Berechnung: <a target=_blank href='https://www.statistik.sg.ch'>FfS-SG</a>"),
         right = HTML("version: <a target=_blank href='https://github.com/statistikSG/sgtourism'>", paste0(packageVersion("sgtourism")), "</a>")
@@ -86,7 +68,7 @@ app_ui <- function(request) {
             mod_ueberblick_tab_ui("ueberblick_tab_1")
           ),
            tabItem(
-             tabName = "details", # TEST
+             tabName = "details",
              fluidRow(
                column(
                  width = 12,
@@ -94,17 +76,14 @@ app_ui <- function(request) {
                )
              )
           ),
-          tabItem(tabName = "peri_all",
-                  fluidRow(column(
-                    width = 12,
-                    bs4Dash::tabsetPanel(
-                      type = "tabs",
-                      tab("Angebot", box(title = tags$b("Title"), tags$p("Content"))),
-                      tab("Nachfrage", box(title = tags$b("Title"), tags$p("Content"))),
-                      tab("Auslastung", box(title = tags$b("Title"), tags$p("Content")))
-                    )
-                  )
-                  )
+          tabItem(
+            tabName = "perimeter",
+            fluidRow(
+              column(
+                width = 12,
+                mod_perimeter_tab_ui("perimeter_tab_1")
+              )
+            )
           )
         )
       )
