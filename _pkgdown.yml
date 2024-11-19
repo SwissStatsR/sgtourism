@@ -1,4 +1,9 @@
 url: https://statistiksg.github.io/sgtourism/
 template:
   bootstrap: 5
-
+  bootswatch: litera
+  bslib:
+    primary: '#009933"'
+authors:
+  Felix Luginbuhl:
+    href: https://felixluginbuhl.com
