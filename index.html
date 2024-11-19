@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">sgtourism</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,37 +53,45 @@
 </div>
 <!-- badges: start -->
 
-<p>The <strong>sgtourism</strong> R package contains the code used to produce the <a href="https://ffssg.shinyapps.io/sgtourismus/" class="external-link">official St.Gallen Tourismus Dashboard</a>.</p>
-<div class="section level2">
-<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
-</h2>
-<p>You can install the package like so:</p>
+<p>The <strong>sgtourism</strong> R package contains the code to produce the <a href="https://ffssg.shinyapps.io/sgtourismus/" class="external-link">official St.Gallen tourism dashboard</a>.</p>
+<div class="section level3">
+<h3 id="launch-the-app">Launch the app<a class="anchor" aria-label="anchor" href="#launch-the-app"></a>
+</h3>
+<p>Install the R package with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"sgtourism"</span>, repos <span class="op">=</span> <span class="st">"https://swissstatsr.r-universe.dev"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="run-the-app">Run the app<a class="anchor" aria-label="anchor" href="#run-the-app"></a>
-</h2>
-<p>You can launch the dashboard locally like so:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"sgtourism"</span>, repos <span class="op">=</span> <span class="st">"https://swissstatsr.r-universe.dev"</span><span class="op">)</span></span>
+<span><span class="co"># remotes::install_github("statistikSG/sgtourism")</span></span></code></pre></div>
+<p>Then launch the app locally:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://statistiksg.github.io/sgtourism/">sgtourism</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="reference/run_app.html">run_app</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Run the application</span></span>
+<span><span class="fu">sgtourism</span><span class="fu">::</span><span class="fu"><a href="reference/run_app.html">run_app</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="how-to-update-data">How to update data<a class="anchor" aria-label="anchor" href="#how-to-update-data"></a>
-</h2>
-<p>The app is built using the <a href="https://thinkr-open.github.io/golem/" class="external-link">golem</a> R package.</p>
-<p>To update the data, you should first replace the CSV file in the “data-raw” folder.</p>
-<p>Then you should run the related R script in the “data-raw” folder, which will create a local RDA file in the “data” folder.</p>
-<p>Once it is done, you can open the “app.R” file and push the updated app.</p>
-</div>
-<div class="section level2">
-<h2 id="dockerfile-with-renv">Dockerfile with renv<a class="anchor" aria-label="anchor" href="#dockerfile-with-renv"></a>
-</h2>
+<div class="section level3">
+<h3 id="how-to-reuse-the-app">How to reuse the app<a class="anchor" aria-label="anchor" href="#how-to-reuse-the-app"></a>
+</h3>
+<p>What if you want to use a different version of <strong>sgtourism</strong> for your own project? We recommend to clone the GitHub repository locally first.</p>
+<p>As your own environment may differ from ours, a stratagy could be to take advantage of the “renv.lock.prod” file to set up the R package dependencies:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># If you want to deploy via a generic Dockerfile</span></span>
-<span><span class="fu">golem</span><span class="fu">::</span><span class="fu"><a href="https://thinkr-open.github.io/golem/reference/dockerfiles.html" class="external-link">add_dockerfile_with_renv</a></span><span class="op">(</span>output_dir <span class="op">=</span> <span class="st">"deploy"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("renv")</span></span>
+<span><span class="co"># renv::activate() # run first</span></span>
+<span><span class="fu">renv</span><span class="fu">::</span><span class="fu">restore</span><span class="op">(</span>lockfile <span class="op">=</span> <span class="st">"deploy/renv.lock.prod"</span><span class="op">)</span></span></code></pre></div>
+<p>Learn more about <strong>renv</strong> <a href="https://rstudio.github.io/renv/articles/renv.html" class="external-link">here</a>.</p>
+<p>Another strategy could be to install all R packages dependencies of <strong>sgtourism</strong>:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="how-to-use-your-own-data">How to use your own data<a class="anchor" aria-label="anchor" href="#how-to-use-your-own-data"></a>
+</h3>
+<p>This R shiny application is transformed as an R package using the <a href="https://thinkr-open.github.io/golem/" class="external-link">golem</a> framework.</p>
+<p>To update the data, you should first replace our CSV files with your own files in the <code>/data-raw</code> folder.</p>
+<p>Then you should run the related R script in the “data-raw” folder to replace the internal RDA file datasets in the <code>/data</code> folder.</p>
+<p>Once it is done, you can go to <code>/dev/03_deploy.R</code> for testing and deploying your application.</p>
+</div>
+<div class="section level3">
+<h3 id="contribute">Contribute<a class="anchor" aria-label="anchor" href="#contribute"></a>
+</h3>
+<p>Any contribution is strongly appreciated. Feel free to report a bug, ask any question or make a pull request for any remaining <a href="https://github.com/statistikSG/sgtourism/issues" class="external-link">issue</a>.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">
